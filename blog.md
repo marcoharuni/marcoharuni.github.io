@@ -6,7 +6,7 @@ title: "Blog"
 # Blog
 
 Welcome to my blog.  
-I write about AI, coding, research, and the journey of building open LLMs.
+I write about AI, coding, research, and Philosophy of AI.
 
 <ul>
   {% for post in site.posts %}
