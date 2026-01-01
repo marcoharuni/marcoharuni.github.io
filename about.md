@@ -7,13 +7,12 @@ title: "About"
 
 ## Hello, I'm Marco Haruni
 
-I'm an AI researcher and Deep Learning engineer passionate about building language models, advancing AGI research, and open science.  
-I believe in making machine learning transparent and accessible to all.
+I'm an AI System researcher
 
 - Email: [marcoharuni95@gmail.com](mailto:marcoharuni95@gmail.com)
 - Github: [marcoharuni](https://github.com/marcoharuni)
 
 **Currently:**  
-- Training LLMs from scratch (see [Qwen3-from-scratch](https://github.com/marcoharuni/Qwen3-from-scratch))
+- Developing Mpemba Lab an AI lab for research
 - Leading open AI projects
 - Writing about AI, science, and future tech
