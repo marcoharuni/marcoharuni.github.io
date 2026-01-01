@@ -3,7 +3,7 @@ layout: default
 title: "About"
 ---
 
-<img src="/assets/images/1767298510685.jpg" alt="Marco Haruni" class="profile">
+<img src="/assets/images/1767298510685.jpg" alt="Marco Haruni" width="180" style="border-radius:50%">
 
 ## Hello, I'm Marco Haruni
 
