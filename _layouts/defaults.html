@@ -1,29 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>{{ page.title }} - {{ site.title }}</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="{{ page.description | default: site.description | escape }}" />
+  <title>{{ page.title | default: site.title }}</title>
+
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <meta name="color-scheme" content="light dark" />
 </head>
-<body>
-  <nav>
-    <a href="{{ "/" | relative_url }}">Home</a>
-    <a href="{{ "/about" | relative_url }}">About</a>
-    <a href="{{ "/blog" | relative_url }}">Blog</a>
-    <a href="{{ "/projects" | relative_url }}">Projects</a>
-    <a href="{{ "/bucketlist" | relative_url }}">Bucket List</a>
-    <a href="{{ "/contact" | relative_url }}">Contact</a>
-  </nav>
-  <main>
+<body class="theme-light">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-grid">
+      <div class="brand">
+        <a href="/" class="brand-link">
+          <img src="/assets/images/1767298510685.jpg" alt="Marco Haruni" class="avatar small">
+          <div class="brand-text">
+            <strong class="brand-title">{{ site.title | default: "Marco Haruni" }}</strong>
+            <span class="brand-sub muted">AI systems researcher — Mpemba Lab</span>
+          </div>
+        </a>
+      </div>
+
+      <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/projects.html">Projects</a></li>
+          <li><a href="/blog.html">Writing</a></li>
+          <li><a href="/contacts.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button id="nav-toggle" class="nav-toggle" aria-controls="site-nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="hamburger"></span>
+        </button>
+        <button id="theme-toggle" class="theme-toggle" aria-pressed="false" title="Toggle theme">🌓</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="site-main">
     {{ content }}
   </main>
-  <footer>
-    <div class="social">
-      <a href="mailto:marcoharuni95@gmail.com">Email</a>
-      <a href="https://github.com/drmarcoaron">GitHub</a>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <strong>{{ site.title | default: "Marco Haruni" }}</strong>
+        <p class="muted">AI systems researcher. Founder — Mpemba Lab.</p>
+      </div>
+
+      <nav aria-label="Footer">
+        <ul class="footer-links">
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/projects.html">Projects</a></li>
+          <li><a href="/blog.html">Writing</a></li>
+          <li><a href="/contacts.html">Contact</a></li>
+        </ul>
+      </nav>
     </div>
-    <p>&copy; {{ site.time | date: '%Y' }} Marco Haruni</p>
+
+    <div class="wrap small muted footer-bottom">
+      <p>© {{ "now" | date: "%Y" }} Marco Haruni — Built with <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.</p>
+    </div>
   </footer>
+
+  <script src="/assets/js/main.js" defer></script>
 </body>
 </html>
