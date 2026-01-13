@@ -1,17 +1,18 @@
 ---
 layout: default
 title: "Contact"
+permalink: /contacts.html
 ---
 
-# Contact
+<div class="wrap narrow contact-card">
+  <h1>Contact</h1>
+  <p class="lead">Want to collaborate, discuss research, or invite me to speak? Send a note — I reply to relevant, concise messages.</p>
 
-You can reach me via:
+  <ul class="contact-list">
+    <li><strong>Email</strong> — <a href="mailto:marcoharuni95@gmail.com">marcoharuni95@gmail.com</a></li>
+    <li><strong>GitHub</strong> — <a href="https://github.com/marcoharuni">github.com/marcoharuni</a></li>
+    <li><strong>Lab</strong> — <a href="https://mpembalab.example/" target="_blank">Mpemba Lab</a> (link to project or lab page)</li>
+  </ul>
 
-- **Email:** [marcoharuni95@gmail.com](mailto:marcoharuni95@gmail.com)
-- **GitHub:** [marcoharuni](https://github.com/marcoharuni)
-- **LinkedIn:** [Marco Haruni](https://www.linkedin.com/in/marco-haruni-8766a6370/)
-- **Twitter/X:** [@marcoharuni](https://twitter.com/marcoharuni)
-- **YouTube:** [@marcoharuni](https://www.youtube.com/@marcoharuni) 
-- **Phone:** +255 745151141
-
-I’m always open to discussing AI, research, or collaborations.
+  <p class="muted small">Pro tip: include a short description of your project and a timeline — that helps me reply faster.</p>
+</div>
