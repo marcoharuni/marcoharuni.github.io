@@ -1,18 +1,31 @@
 ---
 layout: default
-title: "About"
+title: "About — Marco Haruni"
+description: "About Marco Haruni — AI systems researcher and founder of Mpemba Lab."
+permalink: /about.html
 ---
 
-<img src="/assets/images/1767298510685.jpg" alt="Marco Haruni" width="180" style="border-radius:50%">
+<div class="wrap narrow">
+  <div class="about-grid">
+    <img src="/assets/images/1767298510685.jpg" alt="Marco Haruni" class="avatar about-avatar">
 
-## Hello, I'm Marco Haruni
+    <div>
+      <h1>Hi, I’m Marco</h1>
+      <p class="lead">AI systems researcher. I focus on end-to-end reproducibility, evaluation frameworks, and open tooling that helps research teams move from experiments to reliable systems.</p>
 
-I'm an AI System researcher
+      <h3>What I do</h3>
+      <ul>
+        <li>Lead Mpemba Lab — building reproducible research workflows and open datasets.</li>
+        <li>Design and implement scalable model training & evaluation systems.</li>
+        <li>Write technical essays and reproducible experiments that others can run.</li>
+      </ul>
 
-- Email: [marcoharuni95@gmail.com](mailto:marcoharuni95@gmail.com)
-- Github: [marcoharuni](https://github.com/marcoharuni)
+      <h3>Selected skills</h3>
+      <p class="muted">Model evaluation · Experiment pipelines · Distributed training · Docker & orchestration · Python & JAX · CI/CD for research</p>
 
-**Currently:**  
-- Developing Mpemba Lab an AI lab for research
-- Leading open AI projects
-- Writing about AI, science, and future tech
+      <h3>Get in touch</h3>
+      <p>Email: <a href="mailto:marcoharuni95@gmail.com">marcoharuni95@gmail.com</a></p>
+      <p>GitHub: <a href="https://github.com/marcoharuni">github.com/marcoharuni</a></p>
+    </div>
+  </div>
+</div>
