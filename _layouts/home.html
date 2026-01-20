@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marco Haruni</title>
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg: #0b0b0f;
+      --fg: #eaeaf0;
+      --muted: #9a9aa3;
+      --accent: #6cf2c2;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(1200px 600px at top, #14141c, var(--bg));
+      color: var(--fg);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* Top bar */
+    header {
+      display: flex;
+      justify-content: center;
+      gap: 22px;
+      padding: 28px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    header a {
+      font-size: 20px;
+      color: var(--muted);
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    header a:hover {
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* Main */
+    main {
+      max-width: 720px;
+      margin: 80px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      border: 2px solid rgba(255,255,255,0.1);
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .about {
+      margin-top: 10px;
+    }
+
+    .cta {
+      margin-top: 60px;
+      font-size: 17px;
+    }
+
+    .cta a {
+      color: var(--accent);
+      border-bottom: 1px solid transparent;
+    }
+
+    .cta a:hover {
+      border-color: var(--accent);
+    }
+
+    footer {
+      margin: 120px 0 40px;
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP LINKS -->
+  <header>
+    <a href="https://youtube.com/@marcoharuni" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+    <a href="https://x.com/marcoharuni" target="_blank" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+    <a href="https://mpembalab.ai" target="_blank">Mpemba Lab</a>
+    <a href="https://github.com/marcoharuni" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+    <a href="mailto:marcoharuni95@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+    <a href="https://kinara.ai" target="_blank">Kinara</a>
+  </header>
+
+  <!-- CONTENT -->
+  <main>
+    <!-- Replace avatar.jpg with your photo -->
+    <img src="avatar.jpg" alt="Marco Haruni" class="avatar" />
+
+    <h1>Marco Haruni</h1>
+
+    <p class="about">
+      AI systems architect. Founder of <strong>Mpemba Lab</strong> — an independent open AI research lab in Tanzania,
+      on a journey to build AGI and serve humanity in Tanzania, Africa, and worldwide.
+    </p>
+
+    <div class="cta">
+      Try our model → <a href="https://kinara.ai" target="_blank">kinara.ai</a>
+    </div>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Marco Haruni
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
