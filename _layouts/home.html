@@ -13,25 +13,27 @@
 
   <style>
     :root {
-      --bg: #f5f7fb;           /* soft research-light */
-      --fg: #0f172a;           /* deep slate */
-      --muted: #475569;        /* calm gray */
-      --accent: #2563eb;       /* lab blue */
-      --accent-soft: #e0e7ff;  /* hover glow */
+      /* X-style dim theme */
+      --bg: #15202b;
+      --panel: #1c2733;
+      --fg: #e7e9ea;
+      --muted: #8b98a5;
+      --accent: #1d9bf0;
+      --accent-soft: rgba(29,155,240,0.15);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: Inter, system-ui, sans-serif;
-      background: linear-gradient(180deg, #ffffff, var(--bg));
+      background: radial-gradient(1200px 600px at top, #1c2733, var(--bg));
       color: var(--fg);
       line-height: 1.7;
-      animation: fadeIn 0.8s ease forwards;
+      animation: fadeIn 0.7s ease forwards;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
+      from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -42,12 +44,12 @@
       display: flex;
       justify-content: center;
       gap: 22px;
-      padding: 28px 16px;
+      padding: 26px 16px;
       position: sticky;
       top: 0;
-      background: rgba(255,255,255,0.7);
+      background: rgba(21,32,43,0.75);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(0,0,0,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
       z-index: 10;
     }
 
@@ -76,18 +78,19 @@
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 22px;
-      border: 2px solid var(--accent-soft);
-      transition: transform 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .avatar:hover {
-      transform: scale(1.05);
+      transform: scale(1.06);
+      box-shadow: 0 0 0 6px var(--accent-soft);
     }
 
     h1 {
       font-size: 30px;
       font-weight: 600;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       letter-spacing: -0.02em;
     }
 
@@ -97,19 +100,37 @@
     }
 
     .about {
-      margin-top: 8px;
+      margin-top: 6px;
     }
 
+    /* Research card */
+    .lab-card {
+      margin: 56px auto 0;
+      padding: 22px 24px;
+      background: linear-gradient(180deg, var(--panel), rgba(28,39,51,0.6));
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.06);
+      text-align: left;
+      font-size: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      color: #c9d1d9;
+    }
+
+    .lab-card span {
+      color: var(--accent);
+    }
+
+    /* CTA */
     .cta {
-      margin-top: 64px;
-      font-size: 16px;
+      margin-top: 56px;
+      font-size: 15px;
       font-family: 'JetBrains Mono', monospace;
     }
 
     .cta a {
       color: var(--accent);
-      padding: 6px 10px;
-      border-radius: 6px;
+      padding: 8px 12px;
+      border-radius: 8px;
       background: transparent;
       transition: background 0.25s ease;
     }
@@ -145,11 +166,17 @@
 
     <p class="about">
       AI systems architect. Founder of <strong>Mpemba Lab</strong> — an independent open AI research lab in Tanzania,
-      on a journey to build AGI and serve humanity in Tanzania, Africa, and worldwide.
+      building toward AGI to serve humanity in Tanzania, Africa, and worldwide.
     </p>
 
+    <div class="lab-card">
+      <span>Mpemba Lab</span> / independent research<br>
+      focus: foundation models, training systems, infrastructure<br>
+      status: building • open • long‑term
+    </div>
+
     <div class="cta">
-      Try our model → <a href="https://kinara.ai" target="_blank">kinara.ai</a>
+      try our model → <a href="https://kinara.ai" target="_blank">kinara.ai</a>
     </div>
   </main>
 
@@ -162,4 +189,3 @@
   </script>
 </body>
 </html>
-
