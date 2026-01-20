@@ -5,24 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Marco Haruni</title>
 
-  <!-- Icons -->
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <style>
     :root {
-      --bg: #0b0b0f;
-      --fg: #eaeaf0;
-      --muted: #9a9aa3;
-      --accent: #6cf2c2;
+      --bg: #f5f7fb;           /* soft research-light */
+      --fg: #0f172a;           /* deep slate */
+      --muted: #475569;        /* calm gray */
+      --accent: #2563eb;       /* lab blue */
+      --accent-soft: #e0e7ff;  /* hover glow */
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(1200px 600px at top, #14141c, var(--bg));
+      font-family: Inter, system-ui, sans-serif;
+      background: linear-gradient(180deg, #ffffff, var(--bg));
       color: var(--fg);
-      line-height: 1.6;
+      line-height: 1.7;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     a { color: inherit; text-decoration: none; }
@@ -33,13 +43,18 @@
       justify-content: center;
       gap: 22px;
       padding: 28px 16px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      z-index: 10;
     }
 
     header a {
-      font-size: 20px;
+      font-size: 18px;
       color: var(--muted);
-      transition: transform 0.2s ease, color 0.2s ease;
+      transition: all 0.25s ease;
     }
 
     header a:hover {
@@ -50,24 +65,30 @@
     /* Main */
     main {
       max-width: 720px;
-      margin: 80px auto;
+      margin: 90px auto;
       padding: 0 20px;
       text-align: center;
     }
 
     .avatar {
-      width: 72px;
-      height: 72px;
+      width: 64px;
+      height: 64px;
       border-radius: 50%;
       object-fit: cover;
-      margin-bottom: 20px;
-      border: 2px solid rgba(255,255,255,0.1);
+      margin-bottom: 22px;
+      border: 2px solid var(--accent-soft);
+      transition: transform 0.3s ease;
+    }
+
+    .avatar:hover {
+      transform: scale(1.05);
     }
 
     h1 {
-      font-size: 28px;
+      font-size: 30px;
       font-weight: 600;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
     }
 
     p {
@@ -76,28 +97,32 @@
     }
 
     .about {
-      margin-top: 10px;
+      margin-top: 8px;
     }
 
     .cta {
-      margin-top: 60px;
-      font-size: 17px;
+      margin-top: 64px;
+      font-size: 16px;
+      font-family: 'JetBrains Mono', monospace;
     }
 
     .cta a {
       color: var(--accent);
-      border-bottom: 1px solid transparent;
+      padding: 6px 10px;
+      border-radius: 6px;
+      background: transparent;
+      transition: background 0.25s ease;
     }
 
     .cta a:hover {
-      border-color: var(--accent);
+      background: var(--accent-soft);
     }
 
     footer {
       margin: 120px 0 40px;
       text-align: center;
       font-size: 13px;
-      color: #666;
+      color: #64748b;
     }
   </style>
 </head>
@@ -114,7 +139,6 @@
 
   <!-- CONTENT -->
   <main>
-    <!-- Replace avatar.jpg with your photo -->
     <img src="/assets/images/avatar.jpg" alt="Marco Haruni" class="avatar" />
 
     <h1>Marco Haruni</h1>
@@ -138,3 +162,4 @@
   </script>
 </body>
 </html>
+
