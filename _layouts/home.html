@@ -14,14 +14,15 @@
 
   <style>
     :root {
-      /* X-dim + research paper tone */
-      --bg: #0f1a24;
-      --panel: #15202b;
-      --paper: #e6edf3; /* soft off-white */
-      --fg: #e7e9ea;
-      --muted: #8b98a5;
-      --accent: #1d9bf0;
-      --accent-soft: rgba(29,155,240,0.18);
+      /* Fantastic research-dim palette */
+      --bg: #0b1220;            /* deep space blue */
+      --panel: #121a2f;         /* lab surface */
+      --fg: #e5e7eb;            /* soft light text */
+      --muted: #9aa4b2;         /* calm gray */
+      --accent: #7c9cff;        /* electric research blue */
+      --accent-2: #22d3ee;      /* subtle cyan */
+      --paper: #f1f5f9;         /* refined off-white */
+      --accent-soft: rgba(124,156,255,0.18);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -29,8 +30,8 @@
     body {
       font-family: Inter, system-ui, sans-serif;
       background:
-        radial-gradient(1200px 600px at 10% -10%, #1c2b3a, transparent 60%),
-        radial-gradient(800px 500px at 90% 20%, #13202c, transparent 55%),
+        radial-gradient(1200px 600px at 15% -10%, #1b2550, transparent 60%),
+        radial-gradient(900px 500px at 85% 20%, #0e7490, transparent 55%),
         var(--bg);
       color: var(--fg);
       line-height: 1.75;
@@ -39,7 +40,7 @@
 
     a { color: inherit; text-decoration: none; }
 
-    /* Subtle animated noise grid */
+    /* Ambient grid */
     body::before {
       content: "";
       position: fixed;
@@ -47,15 +48,9 @@
       background-image:
         linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 60px 60px;
+      background-size: 64px 64px;
       pointer-events: none;
-      animation: drift 40s linear infinite;
-      opacity: 0.15;
-    }
-
-    @keyframes drift {
-      from { transform: translateY(0); }
-      to { transform: translateY(60px); }
+      opacity: 0.12;
     }
 
     /* Header */
@@ -66,8 +61,8 @@
       padding: 26px 16px;
       position: sticky;
       top: 0;
-      background: rgba(15,26,36,0.75);
-      backdrop-filter: blur(12px);
+      background: rgba(11,18,32,0.75);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(255,255,255,0.06);
       z-index: 10;
     }
@@ -96,14 +91,14 @@
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 22px;
-      border: 2px solid rgba(255,255,255,0.12);
+      border: 2px solid rgba(255,255,255,0.15);
       box-shadow: 0 0 0 0 var(--accent-soft);
-      animation: pulse 6s ease-in-out infinite;
+      animation: pulse 7s ease-in-out infinite;
     }
 
     @keyframes pulse {
       0%, 100% { box-shadow: 0 0 0 0 var(--accent-soft); }
-      50% { box-shadow: 0 0 0 10px transparent; }
+      50% { box-shadow: 0 0 0 14px transparent; }
     }
 
     h1 {
@@ -113,35 +108,26 @@
       letter-spacing: -0.02em;
     }
 
-    p {
-      color: var(--muted);
-      font-size: 16px;
-    }
+    p { color: var(--muted); font-size: 16px; }
 
-    .about {
-      margin-top: 6px;
-      animation: fadeUp 0.8s ease forwards;
-    }
+    .about { margin-top: 6px; }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Research card */
+    /* Lab card */
     .lab-card {
       margin: 56px auto 0;
       padding: 22px 24px;
-      background: linear-gradient(180deg, var(--panel), rgba(21,32,43,0.6));
-      border-radius: 16px;
+      background: linear-gradient(180deg, var(--panel), rgba(18,26,47,0.6));
+      border-radius: 18px;
       border: 1px solid rgba(255,255,255,0.06);
       text-align: left;
       font-size: 14px;
       font-family: 'JetBrains Mono', monospace;
-      color: #c9d1d9;
+      color: #d1d5db;
     }
 
-    .lab-card span { color: var(--accent); }
+    .lab-card a {
+      color: var(--accent);
+    }
 
     /* CTA */
     .cta {
@@ -162,9 +148,9 @@
     /* Thoughts */
     .thoughts {
       margin-top: 100px;
-      padding: 36px 32px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
-      border-radius: 20px;
+      padding: 40px 36px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+      border-radius: 22px;
       border: 1px solid rgba(255,255,255,0.05);
       text-align: left;
     }
@@ -172,30 +158,33 @@
     .thoughts h2 {
       font-size: 18px;
       font-weight: 500;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
       color: var(--paper);
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
       text-transform: lowercase;
     }
 
-    .thoughts p {
-      margin-bottom: 18px;
-      animation: fadeUp 0.9s ease forwards;
-    }
+    .thoughts p { margin-bottom: 18px; }
 
-    .thoughts span {
-      color: var(--paper);
-      font-weight: 500;
-    }
+    .thoughts span { color: var(--paper); font-weight: 500; }
 
     .thoughts .closing {
-      margin-top: 26px;
+      margin-top: 28px;
       font-style: italic;
-      color: #cbd5e1;
+      color: #cbd5f5;
+    }
+
+    /* Final line */
+    .dream {
+      margin-top: 120px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--accent-2);
+      opacity: 0.9;
     }
 
     footer {
-      margin-top: 140px;
+      margin-top: 60px;
       text-align: center;
       font-size: 13px;
       color: #64748b;
@@ -218,12 +207,12 @@
     <h1>Marco Haruni</h1>
 
     <p class="about">
-      AI systems architect. Founder of <strong>Mpemba Lab</strong> — an independent open AI research lab in Tanzania,
+      AI systems architect. Founder of <a href="https://mpembalab.ai" target="_blank">Mpemba Lab</a> — an independent open AI research lab in Tanzania,
       building toward AGI to serve humanity in Tanzania, Africa, and worldwide.
     </p>
 
     <div class="lab-card">
-      <span>Mpemba Lab</span> / independent research<br>
+      <a href="https://mpembalab.ai" target="_blank">Mpemba Lab</a> / independent research<br>
       focus: multimodal systems, robotics, training infrastructure<br>
       status: building • open • long-term
     </div>
@@ -252,6 +241,10 @@
         Through doing, you’ll learn a lot, and understand a little about life.
       </p>
     </section>
+
+    <div class="dream">
+      one thing I wish: to reach Mars Planet one day.
+    </div>
   </main>
 
   <footer>
@@ -263,4 +256,5 @@
   </script>
 </body>
 </html>
+
 
