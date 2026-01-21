@@ -8,38 +8,57 @@
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <style>
     :root {
-      /* X-style dim theme */
-      --bg: #15202b;
-      --panel: #1c2733;
+      /* X-dim + research paper tone */
+      --bg: #0f1a24;
+      --panel: #15202b;
+      --paper: #e6edf3; /* soft off-white */
       --fg: #e7e9ea;
       --muted: #8b98a5;
       --accent: #1d9bf0;
-      --accent-soft: rgba(29,155,240,0.15);
+      --accent-soft: rgba(29,155,240,0.18);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: Inter, system-ui, sans-serif;
-      background: radial-gradient(1200px 600px at top, #1c2733, var(--bg));
+      background:
+        radial-gradient(1200px 600px at 10% -10%, #1c2b3a, transparent 60%),
+        radial-gradient(800px 500px at 90% 20%, #13202c, transparent 55%),
+        var(--bg);
       color: var(--fg);
-      line-height: 1.7;
-      animation: fadeIn 0.7s ease forwards;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+      line-height: 1.75;
+      overflow-x: hidden;
     }
 
     a { color: inherit; text-decoration: none; }
 
-    /* Top bar */
+    /* Subtle animated noise grid */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      animation: drift 40s linear infinite;
+      opacity: 0.15;
+    }
+
+    @keyframes drift {
+      from { transform: translateY(0); }
+      to { transform: translateY(60px); }
+    }
+
+    /* Header */
     header {
       display: flex;
       justify-content: center;
@@ -47,8 +66,8 @@
       padding: 26px 16px;
       position: sticky;
       top: 0;
-      background: rgba(21,32,43,0.75);
-      backdrop-filter: blur(10px);
+      background: rgba(15,26,36,0.75);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(255,255,255,0.06);
       z-index: 10;
     }
@@ -56,7 +75,7 @@
     header a {
       font-size: 18px;
       color: var(--muted);
-      transition: all 0.25s ease;
+      transition: transform 0.25s ease, color 0.25s ease;
     }
 
     header a:hover {
@@ -64,27 +83,27 @@
       transform: translateY(-2px);
     }
 
-    /* Main */
     main {
-      max-width: 720px;
-      margin: 90px auto;
-      padding: 0 20px;
+      max-width: 760px;
+      margin: 100px auto 140px;
+      padding: 0 22px;
       text-align: center;
     }
 
     .avatar {
-      width: 64px;
-      height: 64px;
+      width: 66px;
+      height: 66px;
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 22px;
-      border: 2px solid rgba(255,255,255,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.12);
+      box-shadow: 0 0 0 0 var(--accent-soft);
+      animation: pulse 6s ease-in-out infinite;
     }
 
-    .avatar:hover {
-      transform: scale(1.06);
-      box-shadow: 0 0 0 6px var(--accent-soft);
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 var(--accent-soft); }
+      50% { box-shadow: 0 0 0 10px transparent; }
     }
 
     h1 {
@@ -101,14 +120,20 @@
 
     .about {
       margin-top: 6px;
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* Research card */
     .lab-card {
       margin: 56px auto 0;
       padding: 22px 24px;
-      background: linear-gradient(180deg, var(--panel), rgba(28,39,51,0.6));
-      border-radius: 14px;
+      background: linear-gradient(180deg, var(--panel), rgba(21,32,43,0.6));
+      border-radius: 16px;
       border: 1px solid rgba(255,255,255,0.06);
       text-align: left;
       font-size: 14px;
@@ -116,31 +141,61 @@
       color: #c9d1d9;
     }
 
-    .lab-card span {
-      color: var(--accent);
-    }
+    .lab-card span { color: var(--accent); }
 
     /* CTA */
     .cta {
       margin-top: 56px;
-      font-size: 15px;
       font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
     }
 
     .cta a {
       color: var(--accent);
-      padding: 8px 12px;
-      border-radius: 8px;
-      background: transparent;
+      padding: 8px 14px;
+      border-radius: 10px;
       transition: background 0.25s ease;
     }
 
-    .cta a:hover {
-      background: var(--accent-soft);
+    .cta a:hover { background: var(--accent-soft); }
+
+    /* Thoughts */
+    .thoughts {
+      margin-top: 100px;
+      padding: 36px 32px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+      text-align: left;
+    }
+
+    .thoughts h2 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 18px;
+      color: var(--paper);
+      letter-spacing: 0.04em;
+      text-transform: lowercase;
+    }
+
+    .thoughts p {
+      margin-bottom: 18px;
+      animation: fadeUp 0.9s ease forwards;
+    }
+
+    .thoughts span {
+      color: var(--paper);
+      font-weight: 500;
+    }
+
+    .thoughts .closing {
+      margin-top: 26px;
+      font-style: italic;
+      color: #cbd5e1;
     }
 
     footer {
-      margin: 120px 0 40px;
+      margin-top: 140px;
       text-align: center;
       font-size: 13px;
       color: #64748b;
@@ -149,16 +204,14 @@
 </head>
 <body>
 
-  <!-- TOP LINKS -->
   <header>
-    <a href="https://youtube.com/@marcoharuni" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-    <a href="https://x.com/marcoharuni" target="_blank" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+    <a href="https://youtube.com/@marcoharuni" target="_blank"><i class="fab fa-youtube"></i></a>
+    <a href="https://x.com/marcoharuni" target="_blank"><i class="fab fa-x-twitter"></i></a>
     <a href="https://mpembalab.ai" target="_blank">Mpemba Lab</a>
-    <a href="https://github.com/marcoharuni" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-    <a href="mailto:marcoharuni95@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+    <a href="https://github.com/marcoharuni" target="_blank"><i class="fab fa-github"></i></a>
+    <a href="mailto:marcoharuni95@gmail.com"><i class="fas fa-envelope"></i></a>
   </header>
 
-  <!-- CONTENT -->
   <main>
     <img src="/assets/images/avatar.jpg" alt="Marco Haruni" class="avatar" />
 
@@ -171,13 +224,34 @@
 
     <div class="lab-card">
       <span>Mpemba Lab</span> / independent research<br>
-      focus: foundation models, training systems, infrastructure<br>
-      status: building • open • long‑term
+      focus: multimodal systems, robotics, training infrastructure<br>
+      status: building • open • long-term
     </div>
 
     <div class="cta">
       try our model → <a href="https://kinara.ai" target="_blank">kinara.ai</a>
     </div>
+
+    <section class="thoughts">
+      <h2>some thoughts</h2>
+      <p>
+        I’m deeply interested in <span>multimodal systems</span> — models that combine vision, speech, text, and robotics —
+        especially when they reflect our cultures, preserve human values, and actively protect humanity.
+      </p>
+      <p>
+        I care strongly about <span>open source</span> and <span>open research</span>. I enjoy teaching and learning about
+        AI systems architecture and robotics as practical, understandable systems — not abstractions.
+      </p>
+      <p>
+        I’m especially curious about <span>household robots</span>: systems that help with everyday chores, reason with
+        little data, adapt to real environments, and grow alongside humans.
+      </p>
+      <p class="closing">
+        I don’t value most advice. Much of it reflects other people’s eras, experiences, and biases.
+        What matters is action — take one belief you think could change lives and act on it.
+        Through doing, you’ll learn a lot, and understand a little about life.
+      </p>
+    </section>
   </main>
 
   <footer>
@@ -189,3 +263,4 @@
   </script>
 </body>
 </html>
+
