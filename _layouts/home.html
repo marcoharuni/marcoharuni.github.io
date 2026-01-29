@@ -13,13 +13,15 @@
       --text-secondary: rgba(255, 255, 255, 0.7);
       --text-muted: rgba(255, 255, 255, 0.5);
       --bg-dark: #0a0a0f;
+      --glow-color: rgba(255, 255, 255, 0.5);
     }
 
     [data-theme="light"] {
       --text: #1a1a2e;
-      --text-secondary: rgba(26, 26, 46, 0.7);
+      --text-secondary: rgba(26, 26, 46, 0.75);
       --text-muted: rgba(26, 26, 46, 0.5);
-      --bg-dark: #e8e8f0;
+      --bg-dark: #f0f0f5;
+      --glow-color: rgba(26, 26, 46, 0.3);
     }
 
     * {
@@ -31,6 +33,11 @@
     ::selection {
       background: rgba(255, 255, 255, 0.3);
       color: #fff;
+    }
+
+    [data-theme="light"] ::selection {
+      background: rgba(26, 26, 46, 0.3);
+      color: #1a1a2e;
     }
 
     html {
@@ -45,20 +52,28 @@
       font-size: 16px;
       overflow-x: hidden;
       min-height: 100vh;
+      transition: background 0.6s ease, color 0.6s ease;
     }
 
-    /* Animated Cosmic Background */
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ═══════════════════════════════════════════
+       COSMIC ANIMATED BACKGROUND
+    ═══════════════════════════════════════════ */
     .cosmic-bg {
       position: fixed;
       inset: 0;
       z-index: -1;
       overflow: hidden;
       background: #0a0a0f;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.6s ease;
     }
 
     [data-theme="light"] .cosmic-bg {
-      opacity: 0.4;
+      opacity: 0.3;
     }
 
     .nebula {
@@ -66,93 +81,141 @@
       border-radius: 50%;
       filter: blur(80px);
       opacity: 0.6;
-      animation: float 20s ease-in-out infinite;
+      will-change: transform;
     }
 
     .nebula-1 {
       width: 600px;
       height: 600px;
       background: radial-gradient(circle, #1a5a6e 0%, #0d3d4a 40%, transparent 70%);
-      top: -10%;
-      left: 20%;
-      animation-delay: 0s;
+      top: -15%;
+      left: 15%;
+      animation: drift1 25s ease-in-out infinite;
     }
 
     .nebula-2 {
       width: 500px;
       height: 500px;
       background: radial-gradient(circle, #8b3a62 0%, #5a2040 40%, transparent 70%);
-      top: 20%;
+      top: 25%;
       right: -10%;
-      animation-delay: -5s;
-      animation-duration: 25s;
+      animation: drift2 30s ease-in-out infinite;
     }
 
     .nebula-3 {
       width: 450px;
       height: 450px;
       background: radial-gradient(circle, #2d6a7a 0%, #1a4a5a 40%, transparent 70%);
-      bottom: 10%;
-      left: -5%;
-      animation-delay: -10s;
-      animation-duration: 22s;
+      bottom: 5%;
+      left: -8%;
+      animation: drift3 28s ease-in-out infinite;
     }
 
     .nebula-4 {
       width: 400px;
       height: 400px;
       background: radial-gradient(circle, #6b3a5a 0%, #3d2040 40%, transparent 70%);
-      bottom: -10%;
-      right: 20%;
-      animation-delay: -7s;
-      animation-duration: 28s;
+      bottom: -15%;
+      right: 25%;
+      animation: drift4 32s ease-in-out infinite;
     }
 
     .nebula-5 {
-      width: 350px;
-      height: 350px;
+      width: 300px;
+      height: 300px;
       background: radial-gradient(circle, #3a6a6e 0%, #1a4a4e 40%, transparent 70%);
-      top: 40%;
-      left: 40%;
-      animation-delay: -3s;
-      animation-duration: 30s;
+      top: 45%;
+      left: 35%;
+      animation: drift5 35s ease-in-out infinite;
     }
 
-    @keyframes float {
-      0%, 100% {
-        transform: translate(0, 0) scale(1);
-      }
-      25% {
-        transform: translate(30px, -30px) scale(1.05);
-      }
-      50% {
-        transform: translate(-20px, 20px) scale(0.95);
-      }
-      75% {
-        transform: translate(-30px, -20px) scale(1.02);
-      }
+    @keyframes drift1 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      33% { transform: translate(40px, -30px) rotate(5deg) scale(1.05); }
+      66% { transform: translate(-30px, 40px) rotate(-3deg) scale(0.98); }
     }
 
-    /* Navigation */
+    @keyframes drift2 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      33% { transform: translate(-50px, 30px) rotate(-5deg) scale(1.03); }
+      66% { transform: translate(30px, -40px) rotate(4deg) scale(0.97); }
+    }
+
+    @keyframes drift3 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      33% { transform: translate(35px, 35px) rotate(6deg) scale(1.04); }
+      66% { transform: translate(-40px, -25px) rotate(-4deg) scale(0.96); }
+    }
+
+    @keyframes drift4 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      33% { transform: translate(-30px, -40px) rotate(-6deg) scale(1.06); }
+      66% { transform: translate(45px, 30px) rotate(5deg) scale(0.95); }
+    }
+
+    @keyframes drift5 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      33% { transform: translate(25px, -35px) rotate(4deg) scale(1.02); }
+      66% { transform: translate(-35px, 25px) rotate(-5deg) scale(0.98); }
+    }
+
+    /* Floating particles */
+    .particles {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      animation: particleFloat 20s linear infinite;
+    }
+
+    @keyframes particleFloat {
+      0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+    }
+
+    /* ═══════════════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════════════ */
     nav {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 1000;
-      padding: 24px 48px;
+      padding: 28px 48px;
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      gap: 32px;
+      gap: 36px;
     }
 
     nav a {
       font-size: 15px;
       color: var(--text-secondary);
-      text-decoration: none;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       font-weight: 400;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--text);
+      transition: width 0.3s ease;
     }
 
     nav a:hover,
@@ -160,27 +223,44 @@
       color: var(--text);
     }
 
+    nav a:hover::after,
+    nav a.active::after {
+      width: 100%;
+    }
+
+    /* Theme Toggle */
     .theme-toggle {
-      background: none;
-      border: none;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       color: var(--text-secondary);
       cursor: pointer;
-      padding: 8px;
+      padding: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       border-radius: 50%;
+      backdrop-filter: blur(10px);
+    }
+
+    [data-theme="light"] .theme-toggle {
+      background: rgba(26, 26, 46, 0.08);
+      border-color: rgba(26, 26, 46, 0.15);
     }
 
     .theme-toggle:hover {
       color: var(--text);
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.15);
+      transform: rotate(15deg);
+    }
+
+    [data-theme="light"] .theme-toggle:hover {
+      background: rgba(26, 26, 46, 0.15);
     }
 
     .theme-toggle svg {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
     }
 
     [data-theme="light"] .moon-icon { display: none; }
@@ -188,51 +268,83 @@
     :root .moon-icon { display: block; }
     :root .sun-icon { display: none; }
 
-    /* Container */
+    /* ═══════════════════════════════════════════
+       CONTAINER
+    ═══════════════════════════════════════════ */
     .container {
       max-width: 900px;
       margin: 0 auto;
       padding: 0 48px;
     }
 
-    /* Sections */
-    section {
+    /* ═══════════════════════════════════════════
+       HOME SECTION - CLEAN & CENTERED
+    ═══════════════════════════════════════════ */
+    .home {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 120px 0;
+      align-items: center;
+      text-align: center;
     }
 
-    /* Home Section */
-    .home {
-      text-align: center;
-      align-items: center;
+    /* Name with crossing letter animation */
+    .name-container {
+      position: relative;
+      margin-bottom: 28px;
+      overflow: visible;
     }
 
     .name {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(48px, 12vw, 100px);
+      font-size: clamp(52px, 13vw, 110px);
       font-weight: 400;
       letter-spacing: -0.02em;
-      line-height: 1.1;
-      margin-bottom: 24px;
-      text-shadow: 0 0 80px rgba(255, 255, 255, 0.5),
-                   0 0 40px rgba(255, 255, 255, 0.3);
-      overflow: hidden;
+      line-height: 1;
+      position: relative;
+      display: inline-block;
     }
 
     .name .char {
       display: inline-block;
       opacity: 0;
-      transform: translateY(100%) rotateX(-90deg);
-      animation: charReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      position: relative;
+      animation: charCross 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      text-shadow: 0 0 60px var(--glow-color),
+                   0 0 30px var(--glow-color);
     }
 
-    @keyframes charReveal {
-      to {
+    @keyframes charCross {
+      0% {
+        opacity: 0;
+        transform: translateX(var(--start-x)) translateY(var(--start-y)) rotate(var(--start-rot)) scale(0.5);
+        filter: blur(10px);
+      }
+      50% {
+        opacity: 0.5;
+        filter: blur(5px);
+      }
+      100% {
         opacity: 1;
-        transform: translateY(0) rotateX(0deg);
+        transform: translateX(0) translateY(0) rotate(0deg) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    .name.glowing .char {
+      animation: subtleGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes subtleGlow {
+      0%, 100% {
+        text-shadow: 0 0 60px var(--glow-color),
+                     0 0 30px var(--glow-color);
+      }
+      50% {
+        text-shadow: 0 0 80px var(--glow-color),
+                     0 0 50px var(--glow-color),
+                     0 0 20px var(--glow-color);
       }
     }
 
@@ -241,18 +353,13 @@
       color: var(--text-secondary);
       margin-bottom: 48px;
       opacity: 0;
-      animation: fadeUp 0.8s ease 0.6s forwards;
+      animation: fadeIn 0.8s ease 1.5s forwards;
+      font-style: italic;
     }
 
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .social-links {
@@ -260,101 +367,132 @@
       gap: 16px;
       justify-content: center;
       opacity: 0;
-      animation: fadeUp 0.8s ease 0.8s forwards;
+      animation: fadeIn 0.8s ease 1.8s forwards;
     }
 
     .social-links a {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 52px;
-      height: 52px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       color: var(--text);
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       backdrop-filter: blur(10px);
     }
 
+    [data-theme="light"] .social-links a {
+      background: rgba(26, 26, 46, 0.08);
+      border-color: rgba(26, 26, 46, 0.12);
+    }
+
     .social-links a:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: translateY(-4px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.18);
+      transform: translateY(-6px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    [data-theme="light"] .social-links a:hover {
+      background: rgba(26, 26, 46, 0.15);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
     }
 
     .social-links svg {
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
     }
 
-    /* Section Title */
-    .section-header {
-      margin-bottom: 24px;
+    /* ═══════════════════════════════════════════
+       OTHER SECTIONS
+    ═══════════════════════════════════════════ */
+    section {
+      min-height: 100vh;
+      padding: 140px 0 100px;
     }
 
     .section-title {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(36px, 8vw, 56px);
+      font-size: clamp(40px, 10vw, 64px);
       font-weight: 500;
       letter-spacing: -0.02em;
       margin-bottom: 16px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .section-title.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .section-subtitle {
       font-size: 17px;
       color: var(--text-secondary);
       font-style: italic;
+      margin-bottom: 48px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.15s;
     }
 
-    /* About Section */
-    .about {
-      justify-content: flex-start;
-      padding-top: 140px;
+    .section-subtitle.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
+    /* ═══════════════════════════════════════════
+       ABOUT SECTION
+    ═══════════════════════════════════════════ */
     .about-content {
       display: grid;
-      grid-template-columns: 350px 1fr;
-      gap: 60px;
+      grid-template-columns: 200px 1fr;
+      gap: 50px;
       align-items: start;
-      margin-top: 40px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
     }
 
-    .about-image {
-      position: relative;
+    .about-content.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .about-image img {
       width: 100%;
+      max-width: 200px;
       height: auto;
       border-radius: 8px;
       filter: grayscale(20%);
-      transition: all 0.5s ease;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .about-image img:hover {
       filter: grayscale(0%);
-      transform: scale(1.02);
+      transform: scale(1.03);
     }
 
     .about-text {
-      font-size: 18px;
+      font-size: 17px;
       line-height: 1.9;
       color: var(--text-secondary);
     }
 
     .about-text p {
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
-    .about-text strong {
+    .about-text strong,
+    .about-text a {
       color: var(--text);
       font-weight: 600;
     }
 
     .about-text a {
-      color: var(--text);
-      font-weight: 600;
       text-decoration: underline;
       text-underline-offset: 3px;
       transition: opacity 0.3s ease;
@@ -364,24 +502,39 @@
       opacity: 0.7;
     }
 
-    /* Projects & Blog Sections */
-    .projects, .blog, .books {
-      justify-content: flex-start;
-      padding-top: 140px;
+    /* ═══════════════════════════════════════════
+       PROJECTS & BLOG SECTIONS
+    ═══════════════════════════════════════════ */
+    .content-list {
+      margin-top: 20px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
     }
 
-    .content-list {
-      margin-top: 40px;
+    .content-list.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .content-item {
-      padding: 24px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      transition: all 0.3s ease;
+      display: block;
+      padding: 28px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="light"] .content-item {
+      border-bottom-color: rgba(26, 26, 46, 0.1);
     }
 
     .content-item:hover {
-      padding-left: 16px;
+      padding-left: 20px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+    }
+
+    [data-theme="light"] .content-item:hover {
+      background: linear-gradient(90deg, rgba(26,26,46,0.03) 0%, transparent 100%);
     }
 
     .content-item:last-child {
@@ -389,10 +542,10 @@
     }
 
     .content-item-title {
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 600;
       color: var(--text);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       display: block;
     }
 
@@ -408,48 +561,19 @@
       line-height: 1.6;
     }
 
-    .empty-state {
-      padding: 60px 40px;
-      text-align: center;
-      border: 1px dashed rgba(255, 255, 255, 0.2);
-      border-radius: 12px;
-      color: var(--text-muted);
-      font-size: 15px;
-      margin-top: 40px;
-    }
-
-    /* Footer */
+    /* ═══════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════ */
     footer {
       text-align: center;
-      padding: 40px 0 60px;
+      padding: 60px 0;
       font-size: 14px;
       color: var(--text-muted);
     }
 
-    /* Scroll Animation */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Mobile Styles */
-    @media (max-width: 900px) {
-      .about-content {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-
-      .about-image {
-        max-width: 300px;
-      }
-    }
-
+    /* ═══════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════ */
     @media (max-width: 768px) {
       nav {
         padding: 20px 24px;
@@ -467,60 +591,76 @@
       }
 
       section {
-        padding: 100px 0;
+        padding: 120px 0 80px;
       }
 
-      .about, .projects, .blog, .books {
-        padding-top: 120px;
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 32px;
       }
 
-      .name {
-        text-shadow: 0 0 40px rgba(255, 255, 255, 0.4),
-                     0 0 20px rgba(255, 255, 255, 0.2);
+      .about-image {
+        display: flex;
+        justify-content: center;
+      }
+
+      .about-image img {
+        max-width: 160px;
       }
 
       .social-links a {
-        width: 48px;
-        height: 48px;
+        width: 46px;
+        height: 46px;
       }
 
       .social-links svg {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
       }
 
       .nebula {
         filter: blur(60px);
+        opacity: 0.5;
       }
 
       .nebula-1 { width: 300px; height: 300px; }
       .nebula-2 { width: 250px; height: 250px; }
       .nebula-3 { width: 200px; height: 200px; }
       .nebula-4 { width: 180px; height: 180px; }
-      .nebula-5 { width: 150px; height: 150px; }
-
-      .about-image {
-        max-width: 100%;
-      }
-
-      .about-image img {
-        max-width: 280px;
-      }
-
-      .about-text {
-        font-size: 16px;
-      }
+      .nebula-5 { width: 120px; height: 120px; }
 
       .content-item:hover {
-        padding-left: 8px;
+        padding-left: 12px;
       }
     }
 
-    /* Glow effect for text */
-    .glow {
-      text-shadow: 0 0 80px rgba(255, 255, 255, 0.6),
-                   0 0 40px rgba(255, 255, 255, 0.4),
-                   0 0 20px rgba(255, 255, 255, 0.2);
+    /* ═══════════════════════════════════════════
+       MAGNETIC CURSOR EFFECT (desktop only)
+    ═══════════════════════════════════════════ */
+    @media (hover: hover) {
+      .cursor-glow {
+        position: fixed;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        pointer-events: none;
+        background: radial-gradient(circle, rgba(100, 150, 180, 0.08) 0%, transparent 60%);
+        transform: translate(-50%, -50%);
+        z-index: 0;
+        transition: opacity 0.3s ease;
+        will-change: left, top;
+      }
+
+      [data-theme="light"] .cursor-glow {
+        background: radial-gradient(circle, rgba(26, 26, 46, 0.05) 0%, transparent 60%);
+      }
+    }
+
+    /* Hide cursor glow on mobile */
+    @media (hover: none) {
+      .cursor-glow {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -534,13 +674,18 @@
     <div class="nebula nebula-5"></div>
   </div>
 
+  <!-- Floating Particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Cursor Glow -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
   <!-- Navigation -->
   <nav>
     <a href="#home" class="active">home</a>
     <a href="#about">about</a>
     <a href="#projects">projects</a>
     <a href="#blog">blog</a>
-    <a href="#books">books</a>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
       <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
         <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
@@ -552,9 +697,13 @@
   </nav>
 
   <div class="container">
-    <!-- Home -->
+    <!-- ═══════════════════════════════════════════
+         HOME - Just name, quote, socials
+    ═══════════════════════════════════════════ -->
     <section class="home" id="home">
-      <h1 class="name glow" id="animatedName"></h1>
+      <div class="name-container">
+        <h1 class="name" id="animatedName"></h1>
+      </div>
       <p class="tagline">"Progress is made by trial and failures"</p>
       <div class="social-links">
         <a href="https://github.com/marcoharuni" target="_blank" aria-label="GitHub">
@@ -580,12 +729,12 @@
       </div>
     </section>
 
-    <!-- About -->
-    <section class="about" id="about">
-      <div class="section-header fade-in">
-        <h2 class="section-title">about</h2>
-      </div>
-      <div class="about-content fade-in">
+    <!-- ═══════════════════════════════════════════
+         ABOUT
+    ═══════════════════════════════════════════ -->
+    <section id="about">
+      <h2 class="section-title">about</h2>
+      <div class="about-content">
         <div class="about-image">
           <img src="/assets/images/avatar.jpg" alt="Marco Haruni" />
         </div>
@@ -593,68 +742,53 @@
           <p>hi :) i'm marco</p>
           <p>i'm an aspiring <strong>AI researcher</strong> working on ideas that turn curiosity into real-world solutions.</p>
           <p>i'm deeply interested in <strong>multimodal systems</strong>, <strong>embodied AI</strong>, and building technology that serves humanity — especially in underrepresented regions.</p>
-          <p>i believe in open research, learning in public, and the power of consistent effort over time.</p>
           <p>curious for more? check out my <a href="https://github.com/marcoharuni" target="_blank">github</a>.</p>
         </div>
       </div>
     </section>
 
-    <!-- Projects -->
-    <section class="projects" id="projects">
-      <div class="section-header fade-in">
-        <h2 class="section-title">projects</h2>
-        <p class="section-subtitle">things i've built and experiments i've tried.</p>
-      </div>
-      <div class="content-list fade-in">
-        <!-- Add your projects here like this:
-        <a href="#" class="content-item">
-          <span class="content-item-title">Project Name</span>
-          <p class="content-item-description">Description of what this project does and why it matters.</p>
+    <!-- ═══════════════════════════════════════════
+         PROJECTS
+    ═══════════════════════════════════════════ -->
+    <section id="projects">
+      <h2 class="section-title">projects</h2>
+      <p class="section-subtitle">things i've built and experiments i've tried.</p>
+      <div class="content-list">
+        <!-- 
+        ════════════════════════════════════════════════════════════════
+        ADD YOUR PROJECTS HERE - Copy this template for each project:
+        ════════════════════════════════════════════════════════════════
+        
+        <a href="YOUR_PROJECT_LINK" class="content-item" target="_blank">
+          <span class="content-item-title">Project Title</span>
+          <p class="content-item-description">Brief description of what this project does.</p>
         </a>
+        
+        ════════════════════════════════════════════════════════════════
         -->
-        <div class="empty-state">
-          projects coming soon...
-        </div>
       </div>
     </section>
 
-    <!-- Blog -->
-    <section class="blog" id="blog">
-      <div class="section-header fade-in">
-        <h2 class="section-title">blog</h2>
-        <p class="section-subtitle">thoughts on ai, research, and life.</p>
-      </div>
-      <div class="content-list fade-in">
-        <!-- Add your blog posts here like this:
-        <a href="#" class="content-item">
+    <!-- ═══════════════════════════════════════════
+         BLOG
+    ═══════════════════════════════════════════ -->
+    <section id="blog">
+      <h2 class="section-title">blog</h2>
+      <p class="section-subtitle">thoughts on ai, research, and life.</p>
+      <div class="content-list">
+        <!-- 
+        ════════════════════════════════════════════════════════════════
+        ADD YOUR BLOG POSTS HERE - Copy this template for each post:
+        ════════════════════════════════════════════════════════════════
+        
+        <a href="YOUR_BLOG_LINK" class="content-item" target="_blank">
           <span class="content-item-title">Blog Post Title</span>
           <span class="content-item-meta">January 29, 2026</span>
-          <p class="content-item-description">A brief description of what this post is about.</p>
+          <p class="content-item-description">Brief description of this post.</p>
         </a>
+        
+        ════════════════════════════════════════════════════════════════
         -->
-        <div class="empty-state">
-          writing coming soon...
-        </div>
-      </div>
-    </section>
-
-    <!-- Books -->
-    <section class="books" id="books">
-      <div class="section-header fade-in">
-        <h2 class="section-title">books</h2>
-        <p class="section-subtitle">what i'm reading and recommend.</p>
-      </div>
-      <div class="content-list fade-in">
-        <!-- Add your books here like this:
-        <a href="#" class="content-item">
-          <span class="content-item-title">Book Title</span>
-          <span class="content-item-meta">by Author Name</span>
-          <p class="content-item-description">Why I recommend this book.</p>
-        </a>
-        -->
-        <div class="empty-state">
-          reading list coming soon...
-        </div>
       </div>
     </section>
 
@@ -665,10 +799,14 @@
   </div>
 
   <script>
-    // Year
+    // ═══════════════════════════════════════════
+    // YEAR
+    // ═══════════════════════════════════════════
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Theme Toggle
+    // ═══════════════════════════════════════════
+    // THEME TOGGLE
+    // ═══════════════════════════════════════════
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('theme');
     
@@ -687,7 +825,9 @@
       }
     });
 
-    // Animated Name
+    // ═══════════════════════════════════════════
+    // CROSSING LETTER ANIMATION
+    // ═══════════════════════════════════════════
     const name = "marco haruni";
     const nameElement = document.getElementById('animatedName');
     
@@ -695,11 +835,55 @@
       const span = document.createElement('span');
       span.className = 'char';
       span.textContent = char === ' ' ? '\u00A0' : char;
-      span.style.animationDelay = `${index * 0.06}s`;
+      
+      // Random starting positions for crossing effect
+      const startX = (Math.random() - 0.5) * 300;
+      const startY = (Math.random() - 0.5) * 200;
+      const startRot = (Math.random() - 0.5) * 180;
+      
+      span.style.setProperty('--start-x', `${startX}px`);
+      span.style.setProperty('--start-y', `${startY}px`);
+      span.style.setProperty('--start-rot', `${startRot}deg`);
+      span.style.animationDelay = `${index * 0.08 + 0.2}s`;
+      
       nameElement.appendChild(span);
     });
 
-    // Active nav link on scroll
+    // Add glowing effect after animation completes
+    setTimeout(() => {
+      nameElement.classList.add('glowing');
+    }, 2000);
+
+    // ═══════════════════════════════════════════
+    // FLOATING PARTICLES
+    // ═══════════════════════════════════════════
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 30;
+
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDelay = Math.random() * 20 + 's';
+      particle.style.animationDuration = (15 + Math.random() * 15) + 's';
+      particlesContainer.appendChild(particle);
+    }
+
+    // ═══════════════════════════════════════════
+    // CURSOR GLOW (desktop only)
+    // ═══════════════════════════════════════════
+    const cursorGlow = document.getElementById('cursorGlow');
+    
+    if (window.matchMedia('(hover: hover)').matches) {
+      document.addEventListener('mousemove', (e) => {
+        cursorGlow.style.left = e.clientX + 'px';
+        cursorGlow.style.top = e.clientY + 'px';
+      });
+    }
+
+    // ═══════════════════════════════════════════
+    // ACTIVE NAV LINK ON SCROLL
+    // ═══════════════════════════════════════════
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('nav a');
 
@@ -707,7 +891,6 @@
       let current = '';
       sections.forEach(section => {
         const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
         if (scrollY >= sectionTop - 200) {
           current = section.getAttribute('id');
         }
@@ -721,9 +904,11 @@
       });
     });
 
-    // Intersection Observer for fade-in
+    // ═══════════════════════════════════════════
+    // INTERSECTION OBSERVER FOR ANIMATIONS
+    // ═══════════════════════════════════════════
     const observerOptions = {
-      threshold: 0.1,
+      threshold: 0.15,
       rootMargin: '0px 0px -50px 0px'
     };
 
@@ -735,9 +920,13 @@
       });
     }, observerOptions);
 
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    document.querySelectorAll('.section-title, .section-subtitle, .about-content, .content-list').forEach(el => {
+      observer.observe(el);
+    });
 
-    // Smooth scroll for nav links
+    // ═══════════════════════════════════════════
+    // SMOOTH SCROLL
+    // ═══════════════════════════════════════════
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
