@@ -1,163 +1,1116 @@
-<style>
-/* ========= ULTIMATE TRANSCENDENCE ========= */
-
-.projects-page .page-content,
-.blog-page .page-content{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-start;
-  margin-top:-60px;
-  text-align:center;
-}
-
-/* Gradient animated titles */
-.page-title{
-  font-family:'Space Grotesk',sans-serif;
-  font-size:clamp(34px,8vw,54px);
-  background:linear-gradient(90deg,#c4a0a8,#8b6b73,#fff);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  animation:titleGlow 6s ease-in-out infinite;
-}
-
-@keyframes titleGlow{
-  0%,100%{text-shadow:0 0 15px rgba(196,160,168,.4)}
-  50%{text-shadow:0 0 40px rgba(196,160,168,1)}
-}
-
-/* Glass cards */
-.content-list{
-  max-width:650px;
-  width:100%;
-  margin-top:40px;
-}
-
-.content-item{
-  position:relative;
-  padding:24px;
-  margin-bottom:20px;
-  border-radius:22px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(196,160,168,.2);
-  backdrop-filter:blur(20px);
-  transition:.6s cubic-bezier(.16,1,.3,1);
-  overflow:hidden;
-  transform-style:preserve-3d;
-}
-
-/* Glow */
-.content-item::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:linear-gradient(120deg,transparent,rgba(196,160,168,.25),transparent);
-  opacity:0;
-  transition:.6s;
-}
-
-.content-item:hover::before{opacity:1}
-
-.content-item:hover{
-  transform:translateY(-8px) scale(1.05);
-  box-shadow:
-    0 0 40px rgba(196,160,168,.7),
-    0 0 80px rgba(196,160,168,.3);
-}
-
-/* Floating text */
-.content-item-title{
-  animation:floatText 4s ease-in-out infinite;
-}
-
-@keyframes floatText{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-6px)}
-}
-
-/* Sparkles */
-.sparkle{
-  position:absolute;
-  width:6px;
-  height:6px;
-  background:#fff;
-  border-radius:50%;
-  pointer-events:none;
-  animation:spark 1s forwards;
-}
-
-@keyframes spark{
-  from{opacity:1;transform:scale(1)}
-  to{opacity:0;transform:translate(var(--x),var(--y)) scale(0)}
-}
-
-/* Scroll reveal */
-.reveal{
-  opacity:0;
-  transform:translateY(30px);
-  transition:1s ease;
-}
-
-.reveal.active{
-  opacity:1;
-  transform:translateY(0);
-}
-</style>
-
-<script>
-/* ========= ULTIMATE TRANSCENDENCE JS ========= */
-
-/* 3D tilt + sparkles */
-document.querySelectorAll('.content-item').forEach(card=>{
-  card.classList.add('reveal');
-
-  card.addEventListener('mousemove',e=>{
-    const r=card.getBoundingClientRect();
-    const x=e.clientX-r.left;
-    const y=e.clientY-r.top;
-    const rx=(y/r.height-.5)*-14;
-    const ry=(x/r.width-.5)*14;
-    card.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) scale(1.05)`;
-  });
-
-  card.addEventListener('mouseleave',()=>{
-    card.style.transform="rotateX(0) rotateY(0) scale(1)";
-  });
-
-  card.addEventListener('mouseenter',()=>{
-    for(let i=0;i<15;i++){
-      const s=document.createElement('span');
-      s.className='sparkle';
-      s.style.left=Math.random()*100+'%';
-      s.style.top=Math.random()*100+'%';
-      s.style.setProperty('--x',(Math.random()*150-75)+'px');
-      s.style.setProperty('--y',(Math.random()*150-75)+'px');
-      card.appendChild(s);
-      setTimeout(()=>s.remove(),1000);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marco Haruni</title>
+  
+  <!-- MH Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%232d1f2f'/%3E%3Cstop offset='50%25' style='stop-color:%231a1215'/%3E%3Cstop offset='100%25' style='stop-color:%230d0a0b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Ctext x='50' y='67' font-family='system-ui,sans-serif' font-size='40' font-weight='600' fill='%23c4a0a8' text-anchor='middle'%3EMH%3C/text%3E%3C/svg%3E">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      /* TISSUE / BLOOD / DIM DARK THEME */
+      --bg-deep: #080607;
+      --bg-primary: #0d0a0b;
+      --bg-secondary: #141011;
+      --bg-elevated: #1a1516;
+      
+      --text: #e8e0e2;
+      --text-secondary: rgba(232, 224, 226, 0.65);
+      --text-muted: rgba(232, 224, 226, 0.35);
+      
+      --accent-primary: #8b6b73;
+      --accent-secondary: #6b5a5e;
+      --accent-glow: rgba(180, 140, 150, 0.4);
+      --accent-glow-strong: rgba(200, 160, 170, 0.6);
+      
+      --blood-dark: #2d1f23;
+      --blood-mid: #4a3538;
+      --tissue-pink: #c4a0a8;
+      --tissue-dim: #8b7578;
     }
-  });
-});
 
-/* Scroll reveal */
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add('active');
+    [data-theme="light"] {
+      --bg-deep: #faf8f9;
+      --bg-primary: #f5f2f3;
+      --bg-secondary: #ebe6e8;
+      --bg-elevated: #e0dadc;
+      
+      --text: #1a1215;
+      --text-secondary: rgba(26, 18, 21, 0.7);
+      --text-muted: rgba(26, 18, 21, 0.4);
+      
+      --accent-primary: #6b4a52;
+      --accent-secondary: #8b6b73;
+      --accent-glow: rgba(100, 60, 70, 0.25);
+      --accent-glow-strong: rgba(100, 60, 70, 0.4);
     }
-  });
-},{threshold:0.2});
 
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-/* Typing effect for blog titles */
-document.querySelectorAll('.blog-page .content-item-title').forEach(title=>{
-  const text=title.innerText;
-  title.innerText='';
-  let i=0;
-  const t=setInterval(()=>{
-    title.innerText+=text[i];
-    i++;
-    if(i>=text.length)clearInterval(t);
-  },40);
-});
-</script>
+    ::selection {
+      background: var(--accent-primary);
+      color: var(--text);
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: 'Outfit', -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+      font-weight: 300;
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       TISSUE / BLOOD / DIM COSMIC BACKGROUND
+    ═══════════════════════════════════════════════════════════════════ */
+    .void {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: 
+        radial-gradient(ellipse 80% 60% at 20% 30%, rgba(45, 31, 35, 0.5) 0%, transparent 50%),
+        radial-gradient(ellipse 70% 50% at 75% 70%, rgba(74, 53, 56, 0.4) 0%, transparent 50%),
+        radial-gradient(ellipse 90% 70% at 50% 50%, rgba(26, 18, 21, 0.6) 0%, transparent 60%),
+        linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-primary) 40%, var(--bg-secondary) 100%);
+      transition: opacity 0.8s ease;
+    }
+
+    [data-theme="light"] .void {
+      opacity: 0.3;
+    }
+
+    /* Tissue-like organic nebulas */
+    .tissue {
+      position: absolute;
+      border-radius: 40% 60% 55% 45% / 55% 45% 60% 40%;
+      filter: blur(100px);
+      opacity: 0.5;
+      will-change: transform;
+      mix-blend-mode: soft-light;
+    }
+
+    [data-theme="light"] .tissue {
+      mix-blend-mode: multiply;
+      opacity: 0.3;
+    }
+
+    .tissue-1 {
+      width: 700px;
+      height: 500px;
+      background: radial-gradient(ellipse, var(--blood-dark) 0%, transparent 70%);
+      top: -15%;
+      left: 0%;
+      animation: tissueFloat1 35s ease-in-out infinite;
+    }
+
+    .tissue-2 {
+      width: 600px;
+      height: 450px;
+      background: radial-gradient(ellipse, var(--blood-mid) 0%, transparent 70%);
+      top: 30%;
+      right: -15%;
+      animation: tissueFloat2 40s ease-in-out infinite;
+    }
+
+    .tissue-3 {
+      width: 550px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(139, 107, 115, 0.4) 0%, transparent 70%);
+      bottom: -10%;
+      left: -10%;
+      animation: tissueFloat3 38s ease-in-out infinite;
+    }
+
+    .tissue-4 {
+      width: 450px;
+      height: 350px;
+      background: radial-gradient(ellipse, rgba(107, 90, 94, 0.5) 0%, transparent 70%);
+      bottom: 20%;
+      right: 10%;
+      animation: tissueFloat4 42s ease-in-out infinite;
+    }
+
+    @keyframes tissueFloat1 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); border-radius: 40% 60% 55% 45% / 55% 45% 60% 40%; }
+      25% { transform: translate(50px, -30px) rotate(5deg) scale(1.1); border-radius: 55% 45% 60% 40% / 40% 60% 45% 55%; }
+      50% { transform: translate(-30px, 40px) rotate(-3deg) scale(0.95); border-radius: 45% 55% 40% 60% / 60% 40% 55% 45%; }
+      75% { transform: translate(-40px, -20px) rotate(4deg) scale(1.05); border-radius: 60% 40% 45% 55% / 45% 55% 40% 60%; }
+    }
+
+    @keyframes tissueFloat2 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      25% { transform: translate(-60px, 40px) rotate(-6deg) scale(1.08); }
+      50% { transform: translate(40px, -50px) rotate(5deg) scale(0.92); }
+      75% { transform: translate(30px, 30px) rotate(-4deg) scale(1.04); }
+    }
+
+    @keyframes tissueFloat3 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      25% { transform: translate(45px, 35px) rotate(7deg) scale(1.12); }
+      50% { transform: translate(-50px, -30px) rotate(-5deg) scale(0.88); }
+      75% { transform: translate(-25px, 45px) rotate(3deg) scale(1.06); }
+    }
+
+    @keyframes tissueFloat4 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      25% { transform: translate(-35px, -45px) rotate(-8deg) scale(1.15); }
+      50% { transform: translate(55px, 35px) rotate(6deg) scale(0.85); }
+      75% { transform: translate(40px, -35px) rotate(-5deg) scale(1.1); }
+    }
+
+    /* Particle dust */
+    .dust {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .dust-particle {
+      position: absolute;
+      background: var(--tissue-dim);
+      border-radius: 50%;
+      opacity: 0;
+      animation: dustDrift linear infinite;
+    }
+
+    @keyframes dustDrift {
+      0% { transform: translateY(100vh) translateX(0) scale(0); opacity: 0; }
+      15% { opacity: 0.4; }
+      85% { opacity: 0.4; }
+      100% { transform: translateY(-10vh) translateX(30px) scale(1); opacity: 0; }
+    }
+
+    /* Ambient glow spots */
+    .glow-spot {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: glowPulse 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .glow-1 {
+      width: 200px;
+      height: 200px;
+      background: var(--accent-glow);
+      top: 20%;
+      left: 15%;
+      animation-delay: 0s;
+    }
+
+    .glow-2 {
+      width: 150px;
+      height: 150px;
+      background: var(--accent-glow-strong);
+      bottom: 25%;
+      right: 20%;
+      animation-delay: -4s;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.2); }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════════════════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 28px 40px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 32px;
+    }
+
+    nav a {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      padding: 6px 0;
+      letter-spacing: 0.02em;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--tissue-pink), transparent);
+      transform: scaleX(0);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    nav a:hover {
+      color: var(--text-secondary);
+    }
+
+    nav a.active {
+      color: var(--text);
+    }
+
+    nav a.active::after {
+      transform: scaleX(1);
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      background: var(--bg-elevated);
+      border: 1px solid rgba(139, 107, 115, 0.2);
+      color: var(--text-muted);
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 12px;
+      backdrop-filter: blur(20px);
+    }
+
+    .theme-toggle:hover {
+      color: var(--text);
+      border-color: var(--tissue-pink);
+      transform: rotate(180deg);
+      box-shadow: 0 0 30px var(--accent-glow);
+    }
+
+    .theme-toggle svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.5s ease;
+    }
+
+    [data-theme="light"] .moon-icon { display: none; }
+    [data-theme="light"] .sun-icon { display: block; }
+    :root .moon-icon { display: block; }
+    :root .sun-icon { display: none; }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       PAGES - NO SCROLL
+    ═══════════════════════════════════════════════════════════════════ */
+    .page {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 100px 40px 80px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 10;
+      overflow-y: auto;
+    }
+
+    .page.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .page-content {
+      max-width: 750px;
+      width: 100%;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       HOME PAGE
+    ═══════════════════════════════════════════════════════════════════ */
+    .home-page {
+      text-align: center;
+    }
+
+    .home-page .page-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* NAME - SMALLER, ANIMATES ON PAGE VISIT */
+    .name-container {
+      margin-bottom: 28px;
+      perspective: 1000px;
+    }
+
+    .name {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(36px, 10vw, 72px);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--text);
+    }
+
+    .name .char {
+      display: inline-block;
+      opacity: 0;
+      animation: none;
+    }
+
+    .page.active .name .char {
+      animation: charReveal 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards,
+                 charGlow 4s ease-in-out 1.5s infinite;
+    }
+
+    @keyframes charReveal {
+      0% {
+        opacity: 0;
+        transform: 
+          translateX(var(--tx)) 
+          translateY(var(--ty)) 
+          rotateX(var(--rx)) 
+          rotateY(var(--ry)) 
+          scale(0.5);
+        filter: blur(15px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0) translateY(0) rotateX(0) rotateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes charGlow {
+      0%, 100% {
+        text-shadow: 0 0 20px var(--accent-glow), 0 0 40px transparent;
+      }
+      50% {
+        text-shadow: 0 0 30px var(--accent-glow), 0 0 60px var(--accent-glow-strong);
+      }
+    }
+
+    .tagline {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+      opacity: 0;
+      font-style: italic;
+      font-weight: 300;
+      letter-spacing: 0.01em;
+    }
+
+    .page.active .tagline {
+      animation: contentReveal 0.8s ease 0.8s forwards;
+    }
+
+    @keyframes contentReveal {
+      from { 
+        opacity: 0; 
+        transform: translateY(15px);
+        filter: blur(8px);
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    .social-links {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      opacity: 0;
+    }
+
+    .page.active .social-links {
+      animation: contentReveal 0.8s ease 1s forwards;
+    }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: var(--bg-elevated);
+      border: 1px solid rgba(139, 107, 115, 0.15);
+      color: var(--text-secondary);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .social-links a:hover {
+      color: var(--text);
+      border-color: var(--tissue-pink);
+      transform: translateY(-6px);
+      box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.3),
+        0 0 25px var(--accent-glow);
+    }
+
+    .social-links svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       COPYRIGHT - PROFESSIONAL POSITION
+    ═══════════════════════════════════════════════════════════════════ */
+    .copyright {
+      position: fixed;
+      bottom: 24px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      opacity: 0;
+      z-index: 100;
+    }
+
+    .page.active .copyright {
+      animation: contentReveal 0.8s ease 1.2s forwards;
+    }
+
+    .copyright span {
+      opacity: 0.6;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       ABOUT PAGE
+    ═══════════════════════════════════════════════════════════════════ */
+    .about-page .page-content {
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+
+    .about-header {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      opacity: 0;
+    }
+
+    .page.active .about-header {
+      animation: contentReveal 0.8s ease 0.2s forwards;
+    }
+
+    .page-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(32px, 8vw, 48px);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .about-image img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 16px;
+      filter: grayscale(40%) contrast(1.05);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(139, 107, 115, 0.2);
+    }
+
+    .about-image img:hover {
+      filter: grayscale(0%);
+      transform: scale(1.05) rotate(2deg);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      border-color: var(--tissue-pink);
+    }
+
+    .about-text {
+      font-size: 16px;
+      line-height: 1.9;
+      color: var(--text-secondary);
+      font-weight: 300;
+      opacity: 0;
+    }
+
+    .page.active .about-text {
+      animation: contentReveal 0.8s ease 0.4s forwards;
+    }
+
+    .about-text p {
+      margin-bottom: 18px;
+    }
+
+    .about-text strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .about-text a {
+      color: var(--tissue-pink);
+      font-weight: 400;
+      text-decoration: underline;
+      text-decoration-color: rgba(196, 160, 168, 0.4);
+      text-underline-offset: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .about-text a:hover {
+      text-decoration-color: var(--tissue-pink);
+      text-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       PROJECTS & BLOG PAGES
+    ═══════════════════════════════════════════════════════════════════ */
+    .section-header {
+      opacity: 0;
+      margin-bottom: 32px;
+    }
+
+    .page.active .section-header {
+      animation: contentReveal 0.8s ease 0.2s forwards;
+    }
+
+    .section-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-top: 8px;
+      font-weight: 300;
+    }
+
+    .content-list {
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+    }
+
+    .page.active .content-list {
+      animation: contentReveal 0.8s ease 0.4s forwards;
+    }
+
+    .content-item {
+      display: block;
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(139, 107, 115, 0.1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .content-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 0;
+      background: linear-gradient(180deg, var(--tissue-pink), var(--accent-primary));
+      border-radius: 3px;
+      transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .content-item:hover {
+      padding-left: 20px;
+      background: linear-gradient(90deg, rgba(139, 107, 115, 0.05) 0%, transparent 100%);
+    }
+
+    .content-item:hover::before {
+      height: 60%;
+    }
+
+    .content-item:last-child {
+      border-bottom: none;
+    }
+
+    .content-item-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+      display: block;
+      transition: all 0.3s ease;
+    }
+
+    .content-item:hover .content-item-title {
+      color: var(--tissue-pink);
+    }
+
+    .content-item-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .content-item-description {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       CURSOR AURA
+    ═══════════════════════════════════════════════════════════════════ */
+    .cursor-aura {
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      will-change: left, top;
+      filter: blur(60px);
+      opacity: 0.5;
+      mix-blend-mode: soft-light;
+    }
+
+    [data-theme="light"] .cursor-aura {
+      opacity: 0.3;
+      mix-blend-mode: multiply;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      nav {
+        padding: 20px 20px;
+        gap: 18px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      nav a {
+        font-size: 13px;
+      }
+
+      .page {
+        padding: 90px 20px 70px;
+      }
+
+      .about-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+      }
+
+      .about-image img {
+        width: 90px;
+        height: 90px;
+      }
+
+      .social-links a {
+        width: 42px;
+        height: 42px;
+      }
+
+      .social-links svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .tissue {
+        filter: blur(80px);
+        opacity: 0.4;
+      }
+
+      .tissue-1 { width: 350px; height: 250px; }
+      .tissue-2 { width: 300px; height: 220px; }
+      .tissue-3 { width: 280px; height: 200px; }
+      .tissue-4 { width: 220px; height: 180px; }
+
+      .cursor-aura {
+        display: none;
+      }
+
+      .copyright {
+        bottom: 16px;
+        font-size: 11px;
+      }
+
+      .content-item:hover {
+        padding-left: 14px;
+      }
+    }
+
+    @media (hover: none) {
+      .cursor-aura {
+        display: none;
+      }
+    }
+
+    /* Smooth page transitions */
+    .page {
+      transition-delay: 0s;
+    }
+
+    .page.active {
+      transition-delay: 0.1s;
+    }
+
+    /* Scanline effect for extra atmosphere */
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.03) 0px,
+        rgba(0, 0, 0, 0.03) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      opacity: 0.5;
+    }
+
+    [data-theme="light"] .scanlines {
+      opacity: 0.2;
+    }
+
+    /* Vignette */
+    .vignette {
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(8, 6, 7, 0.4) 100%);
+    }
+
+    [data-theme="light"] .vignette {
+      background: radial-gradient(ellipse at center, transparent 50%, rgba(26, 18, 21, 0.1) 100%);
+    }
+  </style>
+</head>
+<body>
+  <!-- Atmospheric Background -->
+  <div class="void">
+    <div class="tissue tissue-1"></div>
+    <div class="tissue tissue-2"></div>
+    <div class="tissue tissue-3"></div>
+    <div class="tissue tissue-4"></div>
+    <div class="glow-spot glow-1"></div>
+    <div class="glow-spot glow-2"></div>
+  </div>
+
+  <!-- Dust Particles -->
+  <div class="dust" id="dust"></div>
+
+  <!-- Cursor Aura -->
+  <div class="cursor-aura" id="cursorAura"></div>
+
+  <!-- Vignette -->
+  <div class="vignette"></div>
+
+  <!-- Scanlines -->
+  <div class="scanlines"></div>
+
+  <!-- Navigation -->
+  <nav>
+    <a class="nav-link active" data-page="home">home</a>
+    <a class="nav-link" data-page="about">about</a>
+    <a class="nav-link" data-page="projects">projects</a>
+    <a class="nav-link" data-page="blog">blog</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+      </svg>
+      <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+      </svg>
+    </button>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       HOME PAGE
+  ═══════════════════════════════════════════ -->
+  <div class="page home-page active" id="home">
+    <div class="page-content">
+      <div class="name-container">
+        <h1 class="name" id="animatedName"></h1>
+      </div>
+      <p class="tagline">"Progress is made by trial and failures"</p>
+      <div class="social-links">
+        <a href="https://github.com/marcoharuni" target="_blank" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+        </a>
+        <a href="https://youtube.com/@marcoharuni" target="_blank" aria-label="YouTube">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </a>
+        <a href="https://x.com/marcoharuni" target="_blank" aria-label="X/Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a href="mailto:marcoharuni95@gmail.com" aria-label="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+          </svg>
+        </a>
+      </div>
+    </div>
+    <p class="copyright"><span>©</span> 2026 <span>·</span> marco haruni</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       ABOUT PAGE
+  ═══════════════════════════════════════════ -->
+  <div class="page about-page" id="about">
+    <div class="page-content">
+      <div class="about-header">
+        <h2 class="page-title">about</h2>
+        <div class="about-image">
+          <img src="/assets/images/avatar.jpg" alt="Marco Haruni" />
+        </div>
+      </div>
+      <div class="about-text">
+        <p>hi :) i'm marco</p>
+        <p>i'm an aspiring <strong>AI researcher</strong> working on ideas that turn curiosity into real-world solutions.</p>
+        <p>i'm deeply interested in <strong>multimodal systems</strong>, <strong>embodied AI</strong>, and building technology that serves humanity — especially in underrepresented regions.</p>
+        <p>i believe in open research, learning in public, and the power of consistent effort over time.</p>
+        <p>curious for more? check out my <a href="https://github.com/marcoharuni" target="_blank">github</a>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PROJECTS PAGE
+  ═══════════════════════════════════════════ -->
+  <div class="page projects-page" id="projects">
+    <div class="page-content">
+      <div class="section-header">
+        <h2 class="page-title">projects</h2>
+        <p class="section-subtitle">things i've built and experiments i've tried.</p>
+      </div>
+      <div class="content-list">
+        <!-- 
+        ════════════════════════════════════════════════════════════════
+        ADD YOUR PROJECTS HERE:
+        ════════════════════════════════════════════════════════════════
+        
+        <a href="YOUR_LINK" class="content-item" target="_blank">
+          <span class="content-item-title">Project Name</span>
+          <p class="content-item-description">What this project does.</p>
+        </a>
+        
+        ════════════════════════════════════════════════════════════════
+        -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       BLOG PAGE
+  ═══════════════════════════════════════════ -->
+  <div class="page blog-page" id="blog">
+    <div class="page-content">
+      <div class="section-header">
+        <h2 class="page-title">blog</h2>
+        <p class="section-subtitle">thoughts on ai, research, and life.</p>
+      </div>
+      <div class="content-list">
+        <!-- 
+        ════════════════════════════════════════════════════════════════
+        ADD YOUR BLOG POSTS HERE:
+        ════════════════════════════════════════════════════════════════
+        
+        <a href="YOUR_LINK" class="content-item" target="_blank">
+          <span class="content-item-title">Post Title</span>
+          <span class="content-item-meta">January 29, 2026</span>
+          <p class="content-item-description">Brief description.</p>
+        </a>
+        
+        ════════════════════════════════════════════════════════════════
+        -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ═══════════════════════════════════════════════════════════════════
+    // SETUP NAME CHARACTERS
+    // ═══════════════════════════════════════════════════════════════════
+    const name = "marco haruni";
+    const nameElement = document.getElementById('animatedName');
+    
+    function setupNameChars() {
+      nameElement.innerHTML = '';
+      name.split('').forEach((char, index) => {
+        const span = document.createElement('span');
+        span.className = 'char';
+        span.textContent = char === ' ' ? '\u00A0' : char;
+        
+        // Random 3D positions for crossing effect
+        const tx = (Math.random() - 0.5) * 500;
+        const ty = (Math.random() - 0.5) * 300;
+        const rx = (Math.random() - 0.5) * 360;
+        const ry = (Math.random() - 0.5) * 360;
+        
+        span.style.setProperty('--tx', `${tx}px`);
+        span.style.setProperty('--ty', `${ty}px`);
+        span.style.setProperty('--rx', `${rx}deg`);
+        span.style.setProperty('--ry', `${ry}deg`);
+        span.style.animationDelay = `${index * 0.08}s, ${1.5 + index * 0.03}s`;
+        
+        nameElement.appendChild(span);
+      });
+    }
+    
+    setupNameChars();
+
+    // ═══════════════════════════════════════════════════════════════════
+    // NAVIGATION - REPLAY ANIMATIONS ON PAGE SWITCH
+    // ═══════════════════════════════════════════════════════════════════
+    const navLinks = document.querySelectorAll('.nav-link');
+    const pages = document.querySelectorAll('.page');
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        const targetPage = link.dataset.page;
+        
+        // Update nav
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        
+        // Switch pages - remove active first to reset animations
+        pages.forEach(page => {
+          page.classList.remove('active');
+        });
+        
+        // Small delay then activate new page (triggers animations)
+        setTimeout(() => {
+          const newPage = document.getElementById(targetPage);
+          newPage.classList.add('active');
+          
+          // If home page, re-setup name animation
+          if (targetPage === 'home') {
+            setupNameChars();
+          }
+        }, 50);
+      });
+    });
+
+    // ═══════════════════════════════════════════════════════════════════
+    // THEME TOGGLE
+    // ═══════════════════════════════════════════════════════════════════
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme');
+    
+    if (savedTheme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      if (isLight) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    // ═══════════════════════════════════════════════════════════════════
+    // DUST PARTICLES
+    // ═══════════════════════════════════════════════════════════════════
+    const dustContainer = document.getElementById('dust');
+    const dustCount = 40;
+
+    for (let i = 0; i < dustCount; i++) {
+      const dust = document.createElement('div');
+      dust.className = 'dust-particle';
+      const size = Math.random() * 3 + 1;
+      dust.style.width = size + 'px';
+      dust.style.height = size + 'px';
+      dust.style.left = Math.random() * 100 + '%';
+      dust.style.animationDuration = (30 + Math.random() * 30) + 's';
+      dust.style.animationDelay = Math.random() * 30 + 's';
+      dustContainer.appendChild(dust);
+    }
+
+    // ═══════════════════════════════════════════════════════════════════
+    // CURSOR AURA
+    // ═══════════════════════════════════════════════════════════════════
+    const cursorAura = document.getElementById('cursorAura');
+    
+    if (window.matchMedia('(hover: hover)').matches) {
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let auraX = mouseX;
+      let auraY = mouseY;
+      
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      function animateAura() {
+        auraX += (mouseX - auraX) * 0.06;
+        auraY += (mouseY - auraY) * 0.06;
+        cursorAura.style.left = auraX + 'px';
+        cursorAura.style.top = auraY + 'px';
+        requestAnimationFrame(animateAura);
+      }
+      animateAura();
+    }
+
+    // ═══════════════════════════════════════════════════════════════════
+    // KEYBOARD NAV
+    // ═══════════════════════════════════════════════════════════════════
+    document.addEventListener('keydown', (e) => {
+      const pageNames = ['home', 'about', 'projects', 'blog'];
+      let currentIndex = 0;
+      pages.forEach((page, i) => {
+        if (page.classList.contains('active')) currentIndex = i;
+      });
+      
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        const nextIndex = (currentIndex + 1) % pageNames.length;
+        document.querySelector(`[data-page="${pageNames[nextIndex]}"]`).click();
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prevIndex = (currentIndex - 1 + pageNames.length) % pageNames.length;
+        document.querySelector(`[data-page="${pageNames[prevIndex]}"]`).click();
+      }
+    });
+  </script>
+</body>
+</html>
