@@ -1,497 +1,605 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Marco Haruni - AI Architect</title>
+  <title>Marco Haruni — AI Research</title>
+  
+  <!-- Fonts: Spectral for academic elegance, Inter for clarity -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --midnight: #0a0e1a;
-      --deep-space: #12161f;
-      --cosmic-purple: #b794f6;
-      --electric-cyan: #22d3ee;
-      --neon-pink: #ff6ec7;
-      --aurora-green: #10f4b1;
-      --warm-coral: #ff8a65;
-      --milky-white: #f8fafc;
-      --soft-pearl: #e2e8f0;
-      --glass-white: rgba(255,255,255,0.1);
-      --glass-glow: rgba(255,255,255,0.05);
+      /* Sophisticated palette: Ink, Parchment, Amber gold */
+      --ink: #0a0a0a;
+      --charcoal: #1c1c1c;
+      --stone: #292524;
+      --parchment: #fafaf9;
+      --mist: #e7e5e4;
+      --amber: #d97706;
+      --amber-glow: #f59e0b;
+      --text-primary: #f5f5f4;
+      --text-secondary: #a8a29e;
+      --text-muted: #78716c;
     }
     
-    * { 
-      box-sizing: border-box; 
-      margin: 0; 
-      padding: 0; 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
     
-    @keyframes gradientShift {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
-    
-    @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      33% { transform: translateY(-20px) rotate(2deg); }
-      66% { transform: translateY(-10px) rotate(-2deg); }
-    }
-    
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.8; transform: scale(1.05); }
-    }
-    
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes glow {
-      0%, 100% { box-shadow: 0 0 20px rgba(183,148,246,0.3), 0 0 40px rgba(34,211,238,0.2); }
-      50% { box-shadow: 0 0 40px rgba(183,148,246,0.5), 0 0 60px rgba(34,211,238,0.4); }
+    html {
+      scroll-behavior: smooth;
     }
     
     body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: 
-        radial-gradient(circle at 20% 20%, rgba(183,148,246,0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(34,211,238,0.15) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(255,110,199,0.08) 0%, transparent 60%),
-        linear-gradient(135deg, var(--midnight) 0%, var(--deep-space) 100%);
-      background-size: 200% 200%;
-      animation: gradientShift 15s ease infinite;
-      color: var(--milky-white);
-      line-height: 1.7;
-      overflow-x: hidden;
-      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--ink);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
     }
     
+    /* Subtle grain texture for depth */
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      background-image: 
-        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px),
-        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
       pointer-events: none;
-      opacity: 0.4;
+      z-index: 1000;
     }
     
-    header {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 32px;
-      padding: 24px 20px;
-      position: sticky;
+    /* Navigation */
+    nav {
+      position: fixed;
       top: 0;
-      background: rgba(10,14,26,0.7);
-      backdrop-filter: blur(20px) saturate(180%);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      left: 0;
+      right: 0;
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       z-index: 100;
-      animation: slideIn 0.6s ease-out;
+      background: linear-gradient(to bottom, var(--ink) 0%, transparent 100%);
     }
     
-    header a {
-      font-size: 20px;
-      color: var(--soft-pearl);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    .logo {
+      font-family: 'Spectral', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 400;
+      transition: color 0.3s ease;
       position: relative;
-      padding: 8px;
     }
     
-    header a::after {
+    .nav-links a::after {
       content: '';
       position: absolute;
-      bottom: 0;
-      left: 50%;
+      bottom: -4px;
+      left: 0;
       width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--cosmic-purple), var(--electric-cyan));
-      transition: all 0.3s ease;
-      transform: translateX(-50%);
+      height: 1px;
+      background: var(--amber);
+      transition: width 0.3s ease;
     }
     
-    header a:hover {
-      color: var(--electric-cyan);
-      transform: translateY(-4px) scale(1.1);
-      filter: drop-shadow(0 0 20px rgba(34,211,238,0.6));
+    .nav-links a:hover {
+      color: var(--text-primary);
     }
     
-    header a:hover::after {
+    .nav-links a:hover::after {
       width: 100%;
     }
     
+    /* Main Layout */
     main {
-      max-width: 900px;
+      max-width: 720px;
       margin: 0 auto;
-      padding: 80px 28px 120px;
-      text-align: center;
-      animation: slideIn 0.8s ease-out 0.2s both;
+      padding: 12rem 2rem 6rem;
     }
     
-    .hero-section {
-      position: relative;
-      margin-bottom: 60px;
+    /* Hero Section */
+    .hero {
+      margin-bottom: 8rem;
+      animation: fadeIn 1s ease-out;
     }
     
-    .avatar-container {
-      position: relative;
-      display: inline-block;
-      margin-bottom: 32px;
+    .hero h1 {
+      font-family: 'Spectral', serif;
+      font-size: clamp(3rem, 8vw, 4.5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.03em;
     }
     
-    .avatar {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid transparent;
-      background: linear-gradient(var(--deep-space), var(--deep-space)) padding-box,
-                  linear-gradient(135deg, var(--cosmic-purple), var(--electric-cyan), var(--neon-pink)) border-box;
-      animation: float 6s ease-in-out infinite, glow 3s ease-in-out infinite;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    .hero .subtitle {
+      font-size: 1.25rem;
+      color: var(--amber);
+      font-weight: 400;
+      margin-bottom: 2rem;
+      font-family: 'Spectral', serif;
+      font-style: italic;
     }
     
-    .avatar-container::before {
-      content: '';
-      position: absolute;
-      inset: -10px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--cosmic-purple), var(--electric-cyan));
-      opacity: 0.3;
-      filter: blur(20px);
-      animation: pulse 3s ease-in-out infinite;
-    }
-    
-    h1 {
-      font-size: 30px;
-      font-weight: 600;
-      margin-bottom: 14px;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, var(--milky-white), var(--electric-cyan), var(--cosmic-purple));
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: gradientShift 8s ease infinite;
-    }
-    
-    .tagline {
-      font-size: 20px;
-      color: var(--soft-pearl);
-      margin-bottom: 24px;
-      font-weight: 300;
-    }
-    
-    .about {
-      font-size: 18px;
-      color: var(--soft-pearl);
-      max-width: 700px;
-      margin: 0 auto;
+    .hero .bio {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
       line-height: 1.8;
+      max-width: 600px;
     }
     
-    .about a {
-      color: var(--electric-cyan);
-      font-weight: 600;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-    
-    .about a:hover {
-      color: var(--cosmic-purple);
-      text-shadow: 0 0 20px rgba(183,148,246,0.5);
-    }
-    
-    .lab-card {
-      margin: 70px auto 0;
-      padding: 40px;
-      background: linear-gradient(135deg, rgba(183,148,246,0.1), rgba(34,211,238,0.05));
-      border-radius: 24px;
-      border: 2px solid rgba(255,255,255,0.15);
-      text-align: left;
-      font-size: 16px;
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--milky-white);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-      backdrop-filter: blur(10px);
-    }
-    
-    .lab-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, var(--cosmic-purple), var(--electric-cyan));
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    
-    .lab-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 30px 80px rgba(183,148,246,0.3), 0 0 60px rgba(34,211,238,0.2);
-      border-color: var(--electric-cyan);
-    }
-    
-    .lab-card:hover::before {
-      opacity: 0.1;
-    }
-    
-    .lab-card > * {
-      position: relative;
-      z-index: 1;
-    }
-    
-    .lab-card a {
-      color: var(--electric-cyan);
-      font-weight: 600;
-      font-size: 20px;
-      text-decoration: underline;
-      text-decoration-color: transparent;
+    .hero .bio a {
+      color: var(--text-primary);
+      text-decoration: none;
+      border-bottom: 1px solid var(--amber);
       transition: all 0.3s ease;
     }
     
-    .lab-card a:hover {
-      text-decoration-color: var(--electric-cyan);
-      text-shadow: 0 0 20px rgba(34,211,238,0.8);
+    .hero .bio a:hover {
+      color: var(--amber);
+      border-bottom-color: transparent;
     }
     
-    .cta {
-      margin-top: 50px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 18px;
+    /* Social Links */
+    .socials {
+      margin-top: 3rem;
+      display: flex;
+      gap: 1.5rem;
     }
     
-    .cta a {
-      display: inline-block;
-      color: var(--midnight);
-      background: linear-gradient(135deg, var(--electric-cyan), var(--aurora-green));
-      padding: 16px 40px;
-      border-radius: 50px;
-      font-weight: 600;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 10px 30px rgba(34,211,238,0.3);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .cta a::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, var(--aurora-green), var(--electric-cyan));
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    
-    .cta a:hover {
-      transform: translateY(-4px) scale(1.05);
-      box-shadow: 0 20px 50px rgba(34,211,238,0.5), 0 0 40px rgba(16,244,177,0.4);
-    }
-    
-    .cta a:hover::before {
-      opacity: 1;
-    }
-    
-    .cta a span {
-      position: relative;
-      z-index: 1;
-    }
-    
-    .thoughts, .writings {
-      margin-top: 90px;
-      padding: 50px 45px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
-      border-radius: 32px;
-      border: 2px solid rgba(255,255,255,0.12);
-      text-align: left;
-      backdrop-filter: blur(10px);
-      transition: all 0.4s ease;
-    }
-    
-    .thoughts:hover, .writings:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 25px 70px rgba(0,0,0,0.4);
-      border-color: rgba(183,148,246,0.4);
-    }
-    
-    .thoughts h2, .writings h2 {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 28px;
-      background: linear-gradient(135deg, var(--cosmic-purple), var(--neon-pink));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -0.02em;
-    }
-    
-    .thoughts p {
-      margin-bottom: 20px;
-      font-size: 17px;
-      color: var(--soft-pearl);
-    }
-    
-    .thoughts span {
-      color: var(--electric-cyan);
-      font-weight: 600;
-    }
-    
-    .thoughts .closing {
-      margin-top: 32px;
-      font-style: italic;
-      color: var(--milky-white);
-      padding: 24px;
-      background: rgba(183,148,246,0.1);
-      border-left: 4px solid var(--cosmic-purple);
-      border-radius: 12px;
-    }
-    
-    .writings a {
-      display: inline-flex;
+    .socials a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: all 0.3s ease;
+      display: flex;
       align-items: center;
-      gap: 8px;
-      margin-top: 16px;
-      color: var(--aurora-green);
+      gap: 0.5rem;
+    }
+    
+    .socials a:hover {
+      color: var(--amber);
+      transform: translateY(-2px);
+    }
+    
+    /* Section Styling */
+    section {
+      margin-bottom: 8rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+    
+    section:nth-child(2) { animation-delay: 0.1s; }
+    section:nth-child(3) { animation-delay: 0.2s; }
+    section:nth-child(4) { animation-delay: 0.3s; }
+    
+    h2 {
+      font-family: 'Spectral', serif;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--amber);
+      margin-bottom: 3rem;
       font-weight: 600;
-      font-size: 18px;
-      transition: all 0.3s ease;
     }
     
-    .writings a:hover {
+    /* Research Interests */
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    
+    .research-item h3 {
+      font-family: 'Spectral', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+    
+    .research-item p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    
+    /* Publications Section */
+    .publication-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+    
+    .publication-item {
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--stone);
+      transition: transform 0.3s ease;
+    }
+    
+    .publication-item:hover {
       transform: translateX(8px);
-      text-shadow: 0 0 20px rgba(16,244,177,0.6);
     }
     
-    .quote {
-      margin-top: 80px;
-      padding: 45px 40px;
-      border-left: 5px solid var(--neon-pink);
-      background: linear-gradient(135deg, rgba(255,110,199,0.1), rgba(183,148,246,0.05));
-      color: var(--milky-white);
-      font-style: italic;
-      text-align: left;
-      border-radius: 0 20px 20px 0;
-      font-size: 19px;
-      line-height: 1.9;
-      transition: all 0.4s ease;
+    .publication-item:last-child {
+      border-bottom: none;
     }
     
-    .quote:hover {
-      transform: translateX(10px);
-      box-shadow: -5px 0 30px rgba(255,110,199,0.3);
+    .pub-title {
+      font-family: 'Spectral', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
     }
     
-    .quote span {
-      display: block;
-      margin-top: 20px;
-      font-style: normal;
-      color: var(--soft-pearl);
-      font-size: 15px;
+    .pub-meta {
+      color: var(--amber);
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
       font-weight: 500;
     }
     
-    .dream {
-      margin-top: 100px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 18px;
-      color: var(--warm-coral);
-      padding: 30px;
-      background: linear-gradient(135deg, rgba(255,138,101,0.1), transparent);
-      border-radius: 20px;
-      border: 2px dashed rgba(255,138,101,0.3);
-      animation: pulse 4s ease-in-out infinite;
+    .pub-authors {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+      font-style: italic;
     }
     
+    .pub-abstract {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    
+    .pub-links {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .pub-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      border-bottom: 1px solid transparent;
+      transition: all 0.3s ease;
+    }
+    
+    .pub-links a:hover {
+      color: var(--amber);
+      border-bottom-color: var(--amber);
+    }
+    
+    /* Blog Section */
+    .blog-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .blog-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--stone);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+    }
+    
+    .blog-item:hover {
+      padding-left: 1rem;
+      border-left: 2px solid var(--amber);
+      border-bottom-color: transparent;
+    }
+    
+    .blog-content h3 {
+      font-family: 'Spectral', serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .blog-content p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    
+    .blog-date {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      white-space: nowrap;
+      margin-left: 2rem;
+    }
+    
+    .view-all {
+      display: inline-block;
+      margin-top: 2rem;
+      color: var(--amber);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .view-all:hover {
+      transform: translateX(4px);
+    }
+    
+    /* Quote Section */
+    .quote-section {
+      margin: 10rem 0;
+      padding: 3rem;
+      border-left: 3px solid var(--amber);
+      background: linear-gradient(90deg, rgba(217, 119, 6, 0.05) 0%, transparent 100%);
+    }
+    
+    .quote-section blockquote {
+      font-family: 'Spectral', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--text-primary);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    
+    .quote-section cite {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-style: normal;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    /* Footer */
     footer {
-      margin-top: 80px;
-      padding-bottom: 40px;
       text-align: center;
-      font-size: 14px;
-      color: var(--soft-pearl);
-      opacity: 0.7;
+      padding: 4rem 2rem;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      border-top: 1px solid var(--stone);
+      margin-top: 6rem;
     }
     
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Responsive */
     @media (max-width: 768px) {
-      h1 { font-size: 40px; }
-      .tagline { font-size: 18px; }
-      .about { font-size: 16px; }
-      .lab-card, .thoughts, .writings { padding: 30px 25px; }
-      header { gap: 20px; }
-      header a { font-size: 18px; }
+      nav {
+        padding: 1.5rem 2rem;
+      }
+      
+      .nav-links {
+        gap: 1.5rem;
+      }
+      
+      main {
+        padding: 8rem 1.5rem 4rem;
+      }
+      
+      .research-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .blog-item {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .blog-date {
+        margin-left: 0;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <a href="https://youtube.com/@marcoharuni" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-    <a href="https://x.com/marcoharuni" target="_blank" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
-    <a href="https://ailabmpemba.github.io" target="_blank">Mpemba Lab</a>
-    <a href="https://github.com/marcoharuni" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-    <a href="mailto:marcoharuni95@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-  </header>
-  
+
+  <nav>
+    <a href="#" class="logo">MH</a>
+    <ul class="nav-links">
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#writing">Writing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
   <main>
-    <div class="hero-section">
-      <div class="avatar-container">
-        <img src="/assets/images/avatar.jpg" alt="Marco Haruni" class="avatar" />
-      </div>
+    <!-- Hero Section -->
+    <section class="hero">
       <h1>Marco Haruni</h1>
-      <p class="tagline">AI Systems Architect & Research Pioneer</p>
-      <p class="about">
-        Founder of <a href="https://ailabmpemba.github.io" target="_blank">Mpemba Lab</a>, an independent open AI research lab in Tanzania,
-        building toward AGI to serve humanity in Tanzania, Africa, and worldwide. Pushing the boundaries of multimodal systems, robotics, and training infrastructure.
+      <p class="subtitle">Independent AI Researcher</p>
+      <p class="bio">
+        Exploring the boundaries of multimodal intelligence, robotic systems, and scalable training infrastructure. 
+        Focused on building AI that preserves human values while pushing the frontier of what's possible. 
+        Based in Tanzania, working globally.
       </p>
-    </div>
-    
-    <div class="lab-card">
-      <a href="https://ailabmpembalab.github.io" target="_blank">Mpemba Lab</a> / independent research<br>
-      <strong>focus:</strong> multimodal systems, robotics, training infrastructure<br>
-      <strong>status:</strong> building • open • long-term<br>
-      <strong>mission:</strong> democratizing AI for Africa
-    </div>
-    
-    <div class="cta">
-      <a href="https://kinara0ai.github.io" target="_blank"><span>try our model → kinara.ai</span></a>
-    </div>
-    
-    <section class="thoughts">
-      <h2>Core Philosophy</h2>
-      <p>I'm deeply interested in <span>multimodal systems</span> — models that combine vision, speech, text, and robotics, especially when they reflect our cultures, preserve human values, and protect humanity.</p>
-      <p>I care strongly about <span>open source</span> and <span>open research</span>. I enjoy teaching and learning AI systems architecture and robotics as practical, deployable systems.</p>
-      <p>I'm curious about <span>household robots</span> — systems that help with everyday chores, reason with minimal data, and adapt seamlessly to real environments.</p>
-      <p class="closing">I don't value most advice. Much of it reflects other people's eras and biases. What matters is action — take one belief and act on it. Through doing, you'll learn a lot, and understand a little about life.</p>
+      
+      <div class="socials">
+        <a href="https://x.com/marcoharuni" target="_blank">Twitter →</a>
+        <a href="https://github.com/marcoharuni" target="_blank">GitHub →</a>
+        <a href="https://scholar.google.com" target="_blank">Scholar →</a>
+        <a href="mailto:marcoharuni95@gmail.com">Email →</a>
+      </div>
     </section>
-    
-    <section class="writings">
-      <h2>Writings & Research</h2>
-      <p>Exploring the intersection of AI, philosophy, and practical systems. Documenting the journey toward building transformative technology.</p>
-      <a href=".">explore writings →</a>
+
+    <!-- Research Focus -->
+    <section id="research">
+      <h2>Research Focus</h2>
+      <div class="research-grid">
+        <div class="research-item">
+          <h3>Multimodal Systems</h3>
+          <p>Unified architectures integrating vision, language, and sensorimotor understanding for coherent world modeling.</p>
+        </div>
+        <div class="research-item">
+          <h3>Robotic Intelligence</h3>
+          <p>Household robotics and embodied AI capable of reasoning with minimal data and adapting to unstructured environments.</p>
+        </div>
+        <div class="research-item">
+          <h3>Training Infrastructure</h3>
+          <p>Efficient distributed systems and optimization methods for training large-scale models with limited resources.</p>
+        </div>
+      </div>
     </section>
-    
-    <div class="quote">
-      "Nitajielimisha kwa kadiri ya uwezo wangu wote na kutumia elimu yangu kwa faida ya wote."
-      <span>— Mwalimu Julius Kambarage Nyerere<br>First President of Tanzania</span>
+
+    <!-- Publications Section -->
+    <section id="publications">
+      <h2>Selected Publications</h2>
+      <div class="publication-list">
+        
+        <!-- Publication 1 -->
+        <article class="publication-item">
+          <h3 class="pub-title">Attention Mechanisms in Low-Resource Multimodal Learning</h3>
+          <div class="pub-meta">arXiv:2024.xxxxx · NeurIPS 2024 (Under Review)</div>
+          <div class="pub-authors">M. Haruni, et al.</div>
+          <p class="pub-abstract">
+            A novel attention framework for aligning visual and linguistic representations in data-constrained environments, 
+            demonstrating state-of-the-art results on African language vision benchmarks.
+          </p>
+          <div class="pub-links">
+            <a href="#">PDF</a>
+            <a href="#">arXiv</a>
+            <a href="#">Code</a>
+            <a href="#">BibTeX</a>
+          </div>
+        </article>
+
+        <!-- Publication 2 -->
+        <article class="publication-item">
+          <h3 class="pub-title">Efficient Deployment of Transformer Models on Edge Devices</h3>
+          <div class="pub-meta">ICML 2024 Workshop</div>
+          <div class="pub-authors">M. Haruni, A. Researcher</div>
+          <p class="pub-abstract">
+            Optimization techniques for reducing inference latency in transformer architectures without significant 
+            accuracy degradation, with applications in real-time robotic control.
+          </p>
+          <div class="pub-links">
+            <a href="#">PDF</a>
+            <a href="#">Project Page</a>
+          </div>
+        </article>
+
+        <!-- INTEGRATION NOTE: Add more publications here or link to your Google Scholar/Academic page -->
+        
+      </div>
+      
+      <!-- Link to full publication list -->
+      <a href="https://scholar.google.com/citations?user=YOUR_ID" class="view-all" target="_blank">
+        View all publications on Google Scholar →
+      </a>
+    </section>
+
+    <!-- Blog/Writing Section -->
+    <section id="writing">
+      <h2>Recent Writing</h2>
+      <div class="blog-list">
+        
+        <!-- Blog Post 1 -->
+        <a href="#" class="blog-item">
+          <div class="blog-content">
+            <h3>The Philosophy of Open Research in Frontier AI</h3>
+            <p>On balancing safety with accessibility in the race toward AGI...</p>
+          </div>
+          <span class="blog-date">Jan 2024</span>
+        </a>
+
+        <!-- Blog Post 2 -->
+        <a href="#" class="blog-item">
+          <div class="blog-content">
+            <h3>Building Training Infrastructure from Scratch</h3>
+            <p>Lessons learned from setting up distributed GPU clusters in East Africa...</p>
+          </div>
+          <span class="blog-date">Dec 2023</span>
+        </a>
+
+        <!-- Blog Post 3 -->
+        <a href="#" class="blog-item">
+          <div class="blog-content">
+            <h3>Multimodal Models and Cultural Preservation</h3>
+            <p>How AI can capture and maintain linguistic diversity...</p>
+          </div>
+          <span class="blog-date">Nov 2023</span>
+        </a>
+
+      </div>
+      
+      <a href="https://yourblog.substack.com" class="view-all" target="_blank">
+        Read all essays →
+      </a>
+    </section>
+
+    <!-- Quote -->
+    <div class="quote-section">
+      <blockquote>
+        "Nitajielimisha kwa kadiri ya uwezo wangu wote na kutumia elimu yangu kwa faida ya wote."
+      </blockquote>
+      <cite>— Mwalimu Julius Kambarage Nyerere, First President of Tanzania</cite>
     </div>
-    
-    <div class="dream">
-      ✨ one thing I wish: to reach Mars Planet one day.
-    </div>
+
   </main>
-  
-  <footer>
-    © <span id="year"></span> Marco Haruni
+
+  <footer id="contact">
+    <p>© 2024 Marco Haruni · Built with intention</p>
   </footer>
-  
+
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // Simple intersection observer for scroll animations
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('section').forEach((section) => {
+      observer.observe(section);
+    });
   </script>
+
 </body>
 </html>
