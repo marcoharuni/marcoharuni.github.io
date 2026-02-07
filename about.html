@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn more about Marco Haruni, an AI researcher building intelligent systems.">
+    <title>About | Marco Haruni</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .about-hero {
+            padding: 6rem 0 4rem;
+        }
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: start;
+            margin-bottom: 4rem;
+        }
+        .profile-section {
+            position: sticky;
+            top: 100px;
+        }
+        .profile-image {
+            width: 100%;
+            max-width: 300px;
+            aspect-ratio: 1;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 4px solid var(--border);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 1.5rem;
+        }
+        .profile-placeholder {
+            width: 100%;
+            max-width: 300px;
+            aspect-ratio: 1;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-size: 5rem;
+            font-style: italic;
+            color: white;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-lg);
+        }
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+        .interests {
+            margin-top: 3rem;
+        }
+        .interests h2 {
+            margin-bottom: 1.5rem;
+        }
+        .interest-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .tag {
+            padding: 0.6rem 1.2rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .tag:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        @media (max-width: 968px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .profile-section {
+                position: static;
+                text-align: center;
+            }
+            .profile-image,
+            .profile-placeholder {
+                margin: 0 auto 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo">Marco Haruni</a>
+                <button class="mobile-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="publications.html">Publications</a></li>
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><button class="theme-toggle" aria-label="Toggle theme">
+                        <svg class="sun-icon" width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/>
+                        </svg>
+                        <svg class="moon-icon" width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+                        </svg>
+                    </button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Section -->
+    <section class="about-hero">
+        <div class="container">
+            <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); font-style: italic; margin-bottom: 3rem;">About</h1>
+
+            <div class="about-content">
+                <div class="profile-section">
+                    <!-- Replace this div with your photo using: <img src="images/profile.jpg" alt="Marco Haruni" class="profile-image"> -->
+                    <div class="profile-placeholder">MH</div>
+
+                    <div class="location">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span>San Francisco, CA</span>
+                    </div>
+                </div>
+
+                <div class="about-text">
+                    <p>Marco Haruni is an AI researcher focused on building intelligent systems that can learn, reason, and generalize across complex domains.</p>
+
+                    <p>His work sits at the intersection of deep learning, natural language processing, and scalable system design. With a background spanning both academic research and industry engineering, Marco brings a unique perspective to the challenge of making AI both capable and reliable.</p>
+
+                    <p>Currently exploring approaches to improve the reliability and interpretability of large language models, with a focus on making AI systems more aligned with human values and intentions.</p>
+
+                    <p>I'm particularly interested in bridging the gap between cutting-edge AI research and practical applications that can make a real difference in people's lives.</p>
+
+                    <div class="interests">
+                        <h2>Research Interests</h2>
+                        <div class="interest-tags">
+                            <span class="tag">Machine Learning</span>
+                            <span class="tag">Natural Language Processing</span>
+                            <span class="tag">AI Safety</span>
+                            <span class="tag">Deep Learning</span>
+                            <span class="tag">Scalable Systems</span>
+                            <span class="tag">AI Alignment</span>
+                        </div>
+                    </div>
+
+                    <div class="interests">
+                        <h2>Let's Connect</h2>
+                        <p>I'm always interested in collaborating on research projects, discussing new ideas, or speaking at events. Feel free to reach out!</p>
+                        <a href="contact.html" class="btn btn-primary" style="display: inline-flex; margin-top: 1rem;">Get in Touch</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Marco Haruni</h4>
+                    <p>AI Researcher building intelligent systems that learn, reason, and create.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="publications.html">Publications</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Location</h4>
+                    <p>San Francisco, CA</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Marco Haruni. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
