@@ -32,11 +32,15 @@ git push -u origin main
 
 ## ✍️ Write Blog Daily
 
-See **DAILY-GUIDE.md** for complete instructions on:
-- Writing blog posts
-- Adding code & math
-- Adding books/projects/publications
-- Deploying updates
+**RECOMMENDED: Write in Markdown! (Like Karpathy & Raschka)**
+- See **MARKDOWN-GUIDE.md** for full guide
+- One-time setup: `bash setup.sh`
+- Write `.md` files → Run `python3 convert_blog.py` → Push
+- Supports code, math, images, tables, everything!
+
+**Alternative: Simple HTML**
+- See **VSCODE-GUIDE.md** for copy-paste HTML method
+- Or **DAILY-GUIDE.md** for detailed reference
 
 ## 📚 Your Journey Starts Now!
 
