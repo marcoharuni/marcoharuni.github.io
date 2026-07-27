@@ -1,10 +1,10 @@
 {
-  "name": "Marco Haruni — ML Systems & LLM Inference Engineer",
+  "name": "Marco Haruni",
   "short_name": "Marco Haruni",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f4f2ec",
-  "theme_color": "#f4f2ec",
+  "background_color": "#fbfaf7",
+  "theme_color": "#fbfaf7",
   "icons": [
     {"src": "/favicon-32.png", "sizes": "32x32", "type": "image/png"},
     {"src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png"},

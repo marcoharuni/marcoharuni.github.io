@@ -3,60 +3,63 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="The requested page could not be found.">
-  <meta name="author" content="Marco Haruni">
-  <meta name="theme-color" content="#f4f2ec">
-  <meta property="og:type" content="website">
+  <meta name="description" content="Page not found.">
+  <meta name="theme-color" content="#fbfaf7">
   <meta property="og:title" content="Page not found — Marco Haruni">
-  <meta property="og:description" content="The requested page could not be found.">
-  <meta property="og:url" content="https://marcoharuni.github.io/404.html">
+  <meta property="og:description" content="Page not found.">
+  <meta property="og:type" content="website">
   <meta property="og:image" content="https://marcoharuni.github.io/og-image.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Page not found — Marco Haruni">
-  <meta name="twitter:description" content="The requested page could not be found.">
-  <meta name="twitter:image" content="https://marcoharuni.github.io/og-image.png">
-  <link rel="canonical" href="https://marcoharuni.github.io/404.html">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <meta property="og:url" content="https://marcoharuni.github.io/404.html">
+  <title>Page not found — Marco Haruni</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
   <link rel="stylesheet" href="assets/css/styles.css">
-  <title>Page not found — Marco Haruni</title>
+  <script>
+    (() => {
+      let saved = null;
+      try { saved = localStorage.getItem('theme'); } catch (_) {}
+      const theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.style.colorScheme = theme;
+    })();
+  </script>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to content</a>
 <header class="site-header">
   <div class="header-inner">
-    <a class="brand" href="index.html" aria-label="Marco Haruni home">
-      <span class="brand-mark" aria-hidden="true">M</span>
-      <span>Marco Haruni</span>
-    </a>
-    <nav class="site-nav" aria-label="Primary navigation">
-      <a href="work/index.html">Work</a><a href="index.html#approach">Approach</a><a href="index.html#about">About</a><a href="index.html#resume">Résumé</a><a href="index.html#contact">Contact</a>
+    <a class="site-name" href="index.html">Marco Haruni</a>
+    <div class="header-actions">
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="projects.html">Projects</a>
+        <a href="blog.html">Blog</a>
+        <a href="publications.html">Publications</a>
+        <a href="resume.html">Resume</a>
+      </nav>
+      <button class="icon-button" type="button" data-theme-toggle aria-label="Change color mode" title="Change color mode">
+        <svg class="theme-icon theme-sun" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.64 5.64l1.42 1.42M16.94 16.94l1.42 1.42M18.36 5.64l-1.42 1.42M7.06 16.94l-1.42 1.42"/><circle cx="12" cy="12" r="4"/></svg><svg class="theme-icon theme-moon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z"/></svg>
+      </button>
+      <button class="menu-button" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-navigation">
+        <span>Menu</span>
+        <svg aria-hidden="true" viewBox="0 0 16 16"><path d="m3 6 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav-wrap">
+    <nav id="mobile-navigation" class="mobile-nav" data-mobile-nav aria-label="Mobile navigation" hidden>
+      <a href="projects.html">Projects</a>
+      <a href="blog.html">Blog</a>
+      <a href="publications.html">Publications</a>
+      <a href="resume.html">Resume</a>
     </nav>
   </div>
 </header>
-<main id="main-content">
-  <section class="hero">
-    <div class="container">
-      <p class="eyebrow">404</p>
-      <h1>That page is not here.</h1>
-      <p class="lead">Return to the portfolio or open the selected work index.</p>
-      <div class="actions"><a class="button" href="index.html">Go home</a><a class="button secondary" href="work/index.html">View work</a></div>
-    </div>
-  </section>
+<main id="main-content" class="page-main empty-page">
+  <h1 class="page-title">Page not found</h1>
+  <p><a href="index.html">Return home</a>.</p>
 </main>
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <div>© <span data-current-year>2026</span> Marco Haruni. Dar es Salaam, Tanzania.</div>
-    <div class="footer-links">
-      <a href="https://github.com/marcoharuni">GitHub</a>
-      <a href="https://www.linkedin.com/in/marco-haruni-8766a6370">LinkedIn</a>
-      <a href="https://huggingface.co/marcoharuni95">Hugging Face</a>
-      <a href="https://x.com/marcoharuni">X</a>
-    </div>
-  </div>
-</footer>
-<script src="assets/js/main.js" defer></script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>

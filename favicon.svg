@@ -1,5 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Marco Haruni monogram">
-  <rect width="64" height="64" rx="13" fill="#11171d"/>
-  <path d="M12 47V17h9l11 14 11-14h9v30h-8V29L32 43 20 29v18z" fill="#f4f2ec"/>
-  <rect x="49" y="9" width="7" height="7" rx="1.5" fill="#4d88b4"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 64">
+  <rect width="72" height="64" rx="14" fill="#fbfaf7"/>
+  <rect x="2" y="2" width="68" height="60" rx="12" fill="none" stroke="#7a1f1f" stroke-width="4"/>
+  <path d="M8 46V18h6l8 14 8-14h6v28h-6V29l-8 13-8-13v17z" fill="#7a1f1f"/>
+  <path d="M41 18h6v10h9V18h6v28h-6V34h-9v12h-6z" fill="#111111"/>
 </svg>
