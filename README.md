@@ -1,7 +1,3 @@
-# Marco Haruni portfolio
+# Marco Haruni Portfolio
 
-Static GitHub Pages website.
-
-## Publish
-
-Upload every file and folder in this directory to the root of the `marcoharuni.github.io` repository, commit, and push to the `main` branch.
+Static GitHub Pages portfolio with responsive navigation, light and dark modes, accessible motion preferences, subtle page transitions, and included resume PDFs.
