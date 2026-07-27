@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A readable single-GPU Qwen3 inference engine with explicit prefill and decode, paged KV caching, continuous batching, custom kernels, and streamed chat.">
+  <meta name="author" content="Marco Haruni">
+  <meta name="theme-color" content="#f4f2ec">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ForgeEngine — Marco Haruni">
+  <meta property="og:description" content="A readable single-GPU Qwen3 inference engine with explicit prefill and decode, paged KV caching, continuous batching, custom kernels, and streamed chat.">
+  <meta property="og:url" content="https://marcoharuni.github.io/work/forge-engine.html">
+  <meta property="og:image" content="https://marcoharuni.github.io/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ForgeEngine — Marco Haruni">
+  <meta name="twitter:description" content="A readable single-GPU Qwen3 inference engine with explicit prefill and decode, paged KV caching, continuous batching, custom kernels, and streamed chat.">
+  <meta name="twitter:image" content="https://marcoharuni.github.io/og-image.png">
+  <link rel="canonical" href="https://marcoharuni.github.io/work/forge-engine.html">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <title>ForgeEngine — Marco Haruni</title>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html" aria-label="Marco Haruni home">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span>Marco Haruni</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="../work/index.html" aria-current="page">Work</a><a href="../index.html#approach">Approach</a><a href="../index.html#about">About</a><a href="../index.html#resume">Résumé</a><a href="../index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+<main id="main-content">
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumbs"><a href="../index.html">Home</a> / <a href="index.html">Work</a> / ForgeEngine</div>
+      <p class="eyebrow">LLM inference engine</p>
+      <h1>ForgeEngine</h1>
+      <p class="lead">A readable single-GPU Qwen3 inference engine with explicit prefill and decode, paged KV caching, continuous batching, custom kernels, and streamed chat.</p>
+      <div class="case-actions">
+        <a class="button" href="https://github.com/marcoharuni/forge-engine">View source code</a>
+        <a class="button secondary" href="../assets/resume/Marco_Haruni_ML_Systems_Resume.pdf" download>Download résumé</a>
+      </div>
+      <dl class="case-meta"><div><dt>Model</dt><dd>Qwen3 4B Instruct</dd></div><div><dt>Target</dt><dd>One NVIDIA CUDA GPU</dd></div><div><dt>Serving</dt><dd>OpenAI-compatible streaming subset</dd></div><div><dt>License</dt><dd>Apache-2.0</dd></div></dl>
+    </div>
+  </section>
+  <section class="section compact section-rule">
+    <div class="container case-layout">
+      <article class="case-body">
+<section id="problem">
+  <p class="eyebrow">01 / Problem</p>
+  <h2>Make the serving path explicit.</h2>
+  <p>High-level generation APIs hide the mechanisms that determine latency, memory ownership, batching behavior, and cancellation safety. ForgeEngine implements the path directly so each request can be traced through loading, prefill, decode, cache allocation, sampling, detokenization, and streaming.</p>
+  <div class="callout"><strong>Boundary:</strong> this is a focused, readable single-GPU engine for one pinned Qwen3 model revision—not a replacement for a production multi-model serving platform.</div>
+</section>
+<section id="design">
+  <p class="eyebrow">02 / Design</p>
+  <h2>A bounded scheduler owns model execution and KV-cache mutation.</h2>
+  <div class="flow-diagram" aria-label="ForgeEngine serving flow">
+    <div class="flow-step"><span>01</span><strong>Chat template and tokenization</strong></div>
+    <div class="flow-step"><span>02</span><strong>Bounded continuous scheduler</strong></div>
+    <div class="flow-step"><span>03</span><strong>Explicit prefill and decode</strong></div>
+    <div class="flow-step"><span>04</span><strong>Paged KV cache and streaming</strong></div>
+  </div>
+  <ul>
+    <li>Staged SafeTensors loading for the pinned model revision.</li>
+    <li>Separate prefill and token-by-token decode paths rather than <span class="mono">model.generate</span>.</li>
+    <li>Paged block allocation with deterministic release after completion, failure, or cancellation.</li>
+    <li>Greedy, temperature, top-k, top-p, and min-p sampling.</li>
+    <li>Triton residual/RMSNorm and CUDA paged-GQA paths with fallbacks.</li>
+    <li>Terminal, browser, and Rust SSE/load clients.</li>
+  </ul>
+</section>
+<section id="evidence">
+  <p class="eyebrow">03 / Evidence</p>
+  <h2>The published result describes one exact workload.</h2>
+  <table class="result-table">
+    <thead><tr><th>Measurement</th><th>Verified result</th></tr></thead>
+    <tbody>
+      <tr><td>Python tests</td><td>91 passed</td></tr>
+      <tr><td>Parameter-validation subtests</td><td>16 passed</td></tr>
+      <tr><td>Rust tests</td><td>3 passed</td></tr>
+      <tr><td>End-to-end throughput</td><td>19.31 generated tokens/s</td></tr>
+      <tr><td>Measured concurrency</td><td>4</td></tr>
+      <tr><td>Peak process CUDA allocation</td><td>8.88 GB</td></tr>
+      <tr><td>Failed requests / final allocated KV blocks</td><td>0 / 0</td></tr>
+    </tbody>
+  </table>
+  <p class="small muted">The measured workload contained eight requests: six finished and two were deliberately cancelled. The result is not presented as general capacity or as a comparison with another engine.</p>
+</section>
+<section id="scope">
+  <p class="eyebrow">04 / Scope and limitations</p>
+  <h2>What the current engine does not claim.</h2>
+  <ul>
+    <li>Only the pinned Qwen3 4B Instruct revision is supported.</li>
+    <li>Execution is one process on one NVIDIA CUDA GPU.</li>
+    <li>No distributed inference, quantization, speculative decoding, prefix caching, multimodal input, or non-NVIDIA backend.</li>
+    <li>The API does not provide built-in authentication, TLS, persistence, quotas, or multi-tenant isolation.</li>
+  </ul>
+</section>
+<section id="repository">
+  <p class="eyebrow">05 / Repository</p>
+  <h2>Source, architecture, benchmarks, and validation.</h2>
+  <p>The repository includes the model and cache implementation, scheduler, kernels, server and CLI, numerical and behavior tests, a Rust streaming client, real-GPU validation commands, benchmark methodology, and a definition of done.</p>
+  <div class="case-actions"><a class="button" href="https://github.com/marcoharuni/forge-engine">Open ForgeEngine on GitHub</a></div>
+</section></article>
+      <aside class="case-aside" aria-label="Page sections">
+        <nav>
+          <a href="#problem">Problem</a>
+          <a href="#design">Design</a>
+          <a href="#evidence">Evidence</a>
+          <a href="#scope">Scope and limitations</a>
+          <a href="#repository">Repository</a>
+        </nav>
+      </aside>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>© <span data-current-year>2026</span> Marco Haruni. Dar es Salaam, Tanzania.</div>
+    <div class="footer-links">
+      <a href="https://github.com/marcoharuni">GitHub</a>
+      <a href="https://www.linkedin.com/in/marco-haruni-8766a6370">LinkedIn</a>
+      <a href="https://huggingface.co/marcoharuni95">Hugging Face</a>
+      <a href="https://x.com/marcoharuni">X</a>
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/main.js" defer></script>
+</body>
+</html>
