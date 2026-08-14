@@ -46,9 +46,7 @@
 
     body {
       min-height: 100dvh;
-      display: grid;
-      place-items: center;
-      padding: clamp(20px, 5vw, 48px);
+      padding: clamp(42px, 7vh, 68px) clamp(22px, 6vw, 78px);
       background: var(--bg);
       color: var(--text);
       font-family: Arial, Helvetica, sans-serif;
@@ -93,9 +91,16 @@
       outline-offset: 3px;
     }
 
+    @media (max-width: 640px) {
+      body {
+        padding: 34px 22px;
+      }
+    }
+
     @media (max-height: 620px) {
       body {
-        padding-block: 16px;
+        padding-top: 24px;
+        padding-bottom: 16px;
       }
 
       h1 {
@@ -111,6 +116,10 @@
     }
 
     @media (max-height: 470px) {
+      body {
+        padding-top: 14px;
+      }
+
       h1 {
         margin-bottom: 10px;
         font-size: 27px;
